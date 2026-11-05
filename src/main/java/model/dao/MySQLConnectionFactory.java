@@ -16,7 +16,7 @@ public class MySQLConnectionFactory {
 
     private static final String USER = "avnadmin";
 
-    private static final String PASSWORD = "AVNS_R0UluQp7dEU6DaWoQWG";
+    private static final String PASSWORD = "Senha";
 
     public static Connection getConnection() throws ModelException {
 
