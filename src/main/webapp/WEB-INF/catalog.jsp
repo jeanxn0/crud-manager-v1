@@ -21,11 +21,18 @@
 </header>
 <main class="catalog-main">
     <section class="catalog-hero">
-        <h1>Jogos para PC</h1>
+        <h1>Jogos para PC e consoles</h1>
         <p>Explore o catálogo da loja.</p>
         <form method="get" action="${base}/catalogo" class="catalog-search" role="search">
             <label class="sr-only" for="q">Nome do jogo</label>
             <input id="q" name="q" type="search" value="<c:out value='${param.q}'/>" placeholder="Buscar um jogo">
+            <label class="sr-only" for="platform">Plataforma</label>
+            <select id="platform" name="platform">
+                <option value="">Todas as plataformas</option>
+                <c:forEach var="platform" items="${filters}">
+                    <option value="${platform}" ${selectedPlatform eq platform ? 'selected' : ''}>${platform}</option>
+                </c:forEach>
+            </select>
             <button type="submit">Buscar</button>
         </form>
     </section>
@@ -37,10 +44,15 @@
                 <c:set var="cover" value="${covers[game.id()]}"/>
                 <c:choose>
                     <c:when test="${not empty cover}"><img src="${base}/images/games/${cover}.jpg" alt="" width="460" height="215" loading="lazy"></c:when>
-                    <c:otherwise><div class="catalog-placeholder" aria-hidden="true">PC</div></c:otherwise>
+                    <c:otherwise><div class="catalog-placeholder" aria-hidden="true">GAME</div></c:otherwise>
                 </c:choose>
                 <div class="catalog-card-info">
                     <h3><c:out value="${game.titulo()}"/></h3>
+                    <ul class="catalog-platforms" aria-label="Plataformas">
+                        <c:forEach var="platform" items="${platforms[game.id()]}">
+                            <li><c:out value="${platform}"/></li>
+                        </c:forEach>
+                    </ul>
                     <strong><c:choose><c:when test="${game.preco() eq 0}">Grátis</c:when><c:otherwise><fmt:formatNumber type="currency" currencyCode="BRL" value="${game.preco()}"/></c:otherwise></c:choose></strong>
                 </div>
             </article>

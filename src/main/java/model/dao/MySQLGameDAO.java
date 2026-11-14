@@ -47,6 +47,22 @@ public class MySQLGameDAO implements GameDAO {
         }
     }
 
+    @Override
+    public Map<Integer, List<String>> platforms() throws ModelException {
+        Map<Integer, List<String>> platforms = new HashMap<>();
+        try (Connection connection = MySQLConnectionFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT jogo_id, plataforma FROM plataformas_jogos ORDER BY plataforma");
+             ResultSet rows = statement.executeQuery()) {
+            while (rows.next()) {
+                platforms.computeIfAbsent(rows.getInt(1), id -> new ArrayList<>()).add(rows.getString(2));
+            }
+            return platforms;
+        } catch (SQLException e) {
+            throw new ModelException("Erro ao carregar plataformas", e);
+        }
+    }
+
     public void save(Game item) throws ModelException {
         boolean insert = item.id() == 0;
         String sql = insert ? "INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id) VALUES (?, ?, ?, ?, ?)"

@@ -111,3 +111,27 @@ body {
 .catalog-body .store-feedback { color: #18243b; }
 .catalog-body .store-form button { margin-right: 10px; }
 .catalog-body :focus-visible { outline: 3px solid #f9cf7f; outline-offset: 3px; }
+
+.catalog-search select {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  color: #101a28;
+}
+
+.catalog-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0;
+  margin: 0 0 10px;
+  list-style: none;
+}
+
+.catalog-platforms li {
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: #293750;
+  color: #eef3ff;
+  font-size: 12px;
+}

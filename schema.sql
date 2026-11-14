@@ -64,3 +64,10 @@ CREATE TABLE IF NOT EXISTS capas_jogos (
     steam_app_id INT NOT NULL UNIQUE,
     FOREIGN KEY (jogo_id) REFERENCES jogos(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS plataformas_jogos (
+    jogo_id INT NOT NULL,
+    plataforma VARCHAR(24) NOT NULL,
+    PRIMARY KEY (jogo_id, plataforma),
+    FOREIGN KEY (jogo_id) REFERENCES jogos(id) ON DELETE CASCADE
+) ENGINE=InnoDB;

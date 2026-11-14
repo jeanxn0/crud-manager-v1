@@ -275,4 +275,322 @@ SELECT id, 72850 FROM jogos WHERE titulo = 'The Elder Scrolls V Skyrim'
   AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 72850)
   AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
 ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'God of War', 'Jogo de PC', '2018-04-20', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'God of War')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1593500);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1593500 FROM jogos WHERE titulo = 'God of War'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1593500)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'God of War Ragnarök', 'Jogo de PC', '2022-11-09', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'God of War Ragnarök')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 2322010);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 2322010 FROM jogos WHERE titulo = 'God of War Ragnarök'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 2322010)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Marvel’s Spider-Man Remastered', 'Jogo de PC', '2020-11-12', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Marvel’s Spider-Man Remastered')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1817070);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1817070 FROM jogos WHERE titulo = 'Marvel’s Spider-Man Remastered'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1817070)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Ghost of Tsushima Director’s Cut', 'Jogo de PC', '2021-08-20', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Ghost of Tsushima Director’s Cut')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 2215430);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 2215430 FROM jogos WHERE titulo = 'Ghost of Tsushima Director’s Cut'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 2215430)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Forza Horizon 5', 'Jogo de PC', '2021-11-09', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Forza Horizon 5')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1551360);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1551360 FROM jogos WHERE titulo = 'Forza Horizon 5'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1551360)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Halo Infinite', 'Jogo de PC', '2021-12-08', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Halo Infinite')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1240440);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1240440 FROM jogos WHERE titulo = 'Halo Infinite'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1240440)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Sea of Thieves', 'Jogo de PC', '2018-03-20', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Sea of Thieves')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1172620);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1172620 FROM jogos WHERE titulo = 'Sea of Thieves'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1172620)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Starfield', 'Jogo de PC', '2023-09-06', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Starfield')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1716740);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1716740 FROM jogos WHERE titulo = 'Starfield'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1716740)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Rogue Legacy 2', 'Jogo de PC', '2022-04-28', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Rogue Legacy 2')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1253920);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1253920 FROM jogos WHERE titulo = 'Rogue Legacy 2'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1253920)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Lies of P', 'Jogo de PC', '2023-09-19', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Lies of P')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1627720);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1627720 FROM jogos WHERE titulo = 'Lies of P'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1627720)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Dave the Diver', 'Jogo de PC', '2023-06-28', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Dave the Diver')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1868140);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1868140 FROM jogos WHERE titulo = 'Dave the Diver'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1868140)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id)
+SELECT 'Mirror’s Edge Catalyst', 'Jogo de PC', '2016-06-07', 99.90, @responsavel
+WHERE NOT EXISTS (SELECT 1 FROM jogos WHERE titulo = 'Mirror’s Edge Catalyst')
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1233570);
+INSERT INTO capas_jogos (jogo_id, steam_app_id)
+SELECT id, 1233570 FROM jogos WHERE titulo = 'Mirror’s Edge Catalyst'
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE steam_app_id = 1233570)
+  AND NOT EXISTS (SELECT 1 FROM capas_jogos WHERE jogo_id = jogos.id)
+ORDER BY id LIMIT 1;
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1593500
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1593500
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 2322010
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 2322010
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1817070
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 2215430
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 2215430
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1551360
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1551360
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1551360
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1240440
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1240440
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1172620
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1172620
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1172620
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1716740
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 1253920
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1253920
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1253920
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1253920
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1253920
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1627720
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1627720
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1627720
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1627720
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 1868140
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1868140
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1868140
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1233570
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1233570
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1245620
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1245620
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1245620
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1245620
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1091500
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1091500
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1091500
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1091500
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 292030
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 292030
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 292030
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 292030
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 292030
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1174180
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1174180
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1086940
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1086940
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 367520
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 367520
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 367520
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 413150
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 413150
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 413150
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 105600
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 105600
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 105600
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 1145360
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 1145360
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 1145360
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox Series' FROM capas_jogos c WHERE steam_app_id = 1145360
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox Series');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 1145360
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 588650
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS5' FROM capas_jogos c WHERE steam_app_id = 588650
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS5');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 588650
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 588650
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 504230
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Xbox One' FROM capas_jogos c WHERE steam_app_id = 504230
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Xbox One');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'Switch' FROM capas_jogos c WHERE steam_app_id = 504230
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'Switch');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PS4' FROM capas_jogos c WHERE steam_app_id = 250900
+  AND NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PS4');
+INSERT INTO plataformas_jogos (jogo_id, plataforma)
+SELECT jogo_id, 'PC' FROM capas_jogos c
+WHERE NOT EXISTS (SELECT 1 FROM plataformas_jogos p WHERE p.jogo_id = c.jogo_id AND p.plataforma = 'PC');
 COMMIT;

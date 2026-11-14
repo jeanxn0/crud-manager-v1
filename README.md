@@ -30,6 +30,6 @@ As listagens exibem até dez registros por página. Jogos com vendas vinculadas 
 
 ## Catálogo e contas
 
-Execute também `catalogo-demo.sql` depois de `schema.sql` para inserir os 30 jogos de demonstração com capas locais da Steam. Os preços são ilustrativos. A vitrine pública fica em `/catalogo` e oferece busca por título.
+Execute também `catalogo-demo.sql` depois de `schema.sql` para inserir os 42 jogos de demonstração com capas locais da Steam. Os preços são ilustrativos. A vitrine pública fica em `/catalogo` e oferece busca por título e filtro por plataforma.
 
 A página `/register` cadastra clientes por e-mail. Clientes autenticados voltam ao catálogo. A conta administrativa configurada no Tomcat continua acessando os CRUDs.
