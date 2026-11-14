@@ -11,6 +11,8 @@ public class DAOFactory {
 	// lista suas interfaces e classes DAO na listDAOsInterfaces
 	// Se tiver curiosidade, pergunte ao professor sobre o funcionamento de blocos estáticos
 	static {
+		listDAOsInterfaces.put(SaleDAO.class, new MySQLSaleDAO());
+		listDAOsInterfaces.put(GameDAO.class, new MySQLGameDAO());
 		listDAOsInterfaces.put(PostDAO.class, new MySQLPostDAO());
 		listDAOsInterfaces.put(UserDAO.class, new MySQLUserDAO());
 		listDAOsInterfaces.put(CompanyDAO.class, new MySQLCompanyDAO());

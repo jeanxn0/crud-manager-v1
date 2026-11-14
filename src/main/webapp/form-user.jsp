@@ -12,6 +12,7 @@
 			<h3 class="page-header">Adicionar Usuário</h3>
 
 			<form action="${pageContext.request.contextPath}/user/${action}" method="POST">
+<input type="hidden" name="csrf" value="${sessionScope.csrf}">
 				<input type="hidden" value="${user.getId()}" name="userId">
 				<div class="row">
 					<div class="form-group col-md-4">

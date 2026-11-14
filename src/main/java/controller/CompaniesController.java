@@ -25,16 +25,16 @@ public class CompaniesController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
-		String action = req.getRequestURI();
+		String action = req.getServletPath();
 		
 		switch (action) {
-		case "/crud-manager/company/form": {
+		case "/company/form": {
 			CommonsController.listUsers(req);
 			req.setAttribute("action", "insert");
 			ControllerUtil.forward(req, resp, "/form-company.jsp");			
 			break;
 		}
-		case "/crud-manager/company/update": {
+		case "/company/update": {
 			String idStr = req.getParameter("companyId");
 			int idCompany = Integer.parseInt(idStr); 
 			
@@ -75,28 +75,28 @@ public class CompaniesController extends HttpServlet{
 		}
 		
 		if (companies != null)
-			req.setAttribute("companies", companies);
+			Pagination.apply(req, "companies", companies);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
-		String action = req.getRequestURI();
+		String action = req.getServletPath();
 		
 		switch (action) {
-		case "/crud-manager/company/insert": {
+		case "/company/insert": {
 			insertCompany(req, resp);			
 			break;
 		}
-		case "/crud-manager/company/delete" :{
+		case "/company/delete" :{
 			
 			deleteCompany(req, resp);
 			
 			break;
 		}
 		
-		case "/crud-manager/company/update" :{
+		case "/company/update" :{
 			updateCompany(req, resp);
 			break;
 		}

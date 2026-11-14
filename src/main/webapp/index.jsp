@@ -9,15 +9,21 @@
 		<%@include file="modal.html"%>
 		<%@include file="nav-menu.jsp"%>
 					
-		<div id="container" class="container-fluid">
+		<div id="container" class="container-fluid store-home">
 			<div id="alert" style="${not empty message ? 'display: block;' : 'display: none;'}" class="alert alert-dismissable ${alertType eq 1 ? 'alert-success' : 'alert-danger'}">
 			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			  ${message}
 			</div>
 		
-	 	 	<div id="top" class="row">
+			<header class="store-intro">
+                <p class="store-intro-label">Painel de administração</p>
+                <h1>Loja de Games</h1>
+                <p>Acompanhe as publicações e acesse os cadastros pelo menu.</p>
+            </header>
+
+            <div id="top" class="row">
 	 			<div class="col-md-3">
-			        <h3>Posts</h3>
+			        <h2>Posts</h2>
 			    </div>
 			 
 			    <div class="col-md-6">
@@ -32,7 +38,7 @@
 			    </div>
 			 
 			    <div class="col-md-3">
-			        <a href="/crud-manager/post/form" class="btn btn-danger pull-right h2"><span class="glyphicon glyphicon-plus" /></span>&nbspAdicionar Post</a>
+			        <a href="${pageContext.request.contextPath}/post/form" class="btn btn-danger pull-right h2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Adicionar post</a>
 			    </div>
 	     	</div>
 	 
@@ -78,13 +84,7 @@
 	 
 	     	<div id="bottom" class="row">
 	     		<div class="col-md-12">
-			        <ul class="pagination">
-			            <li class="disabled"><a>&lt; Anterior</a></li>
-			            <li class="disabled"><a>1</a></li>
-			            <li><a href="#">2</a></li>
-			            <li><a href="#">3</a></li>
-			            <li class="next"><a href="#" rel="next">Próximo &gt;</a></li>
-			        </ul><!-- /.pagination -->
+			        <%@ include file="WEB-INF/pagination.jspf" %>
 			    </div>
 	     	</div>
 		</div>

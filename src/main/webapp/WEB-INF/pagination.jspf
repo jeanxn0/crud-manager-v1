@@ -1,0 +1,7 @@
+<c:if test="${totalPages gt 1}">
+    <nav class="store-pagination" aria-label="Paginação">
+        <c:if test="${currentPage gt 1}"><a href="?page=${currentPage - 1}">Anterior</a></c:if>
+        <span>Página ${currentPage} de ${totalPages}</span>
+        <c:if test="${currentPage lt totalPages}"><a href="?page=${currentPage + 1}">Próxima</a></c:if>
+    </nav>
+</c:if>

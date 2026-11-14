@@ -13,6 +13,7 @@
 			<h3 class="page-header">Adicionar Post</h3>
 
 			<form action="${pageContext.request.contextPath}/post/${action}" method="POST">
+<input type="hidden" name="csrf" value="${sessionScope.csrf}">
 				<input type="hidden" value="${post.getId()}" name="postId">
 				<div class="row">
 					<div class="form-group col-md-6">

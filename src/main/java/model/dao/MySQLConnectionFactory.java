@@ -11,12 +11,11 @@ public class MySQLConnectionFactory {
     private static final String JDBC_DRIVER_NAME =
             "com.mysql.cj.jdbc.Driver";
 
-    private static final String DATABASE_URL =
-            "jdbc:mysql://trabalho-jeansantosc27-f68c.b.aivencloud.com:10001/crud_manager?sslMode=REQUIRED";
+    private static final String DATABASE_URL = System.getenv().getOrDefault("CRUD_DB_URL", "jdbc:mysql://localhost:3306/crud_manager");
 
-    private static final String USER = "avnadmin";
+    private static final String USER = System.getenv().getOrDefault("CRUD_DB_USER", "root");
 
-    private static final String PASSWORD = "Senha";
+    private static final String PASSWORD = System.getenv().getOrDefault("CRUD_DB_PASSWORD", "");
 
     public static Connection getConnection() throws ModelException {
 

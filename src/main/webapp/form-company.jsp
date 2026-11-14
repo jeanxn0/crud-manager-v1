@@ -14,6 +14,7 @@
 		
 		<form action="${pageContext.request.contextPath}/company/${action}" 
 			method="POST">
+<input type="hidden" name="csrf" value="${sessionScope.csrf}">
 			
 			<input type="hidden" value="${company.getId()}" name="companyId">
 			
