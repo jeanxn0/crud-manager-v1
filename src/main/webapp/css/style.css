@@ -135,3 +135,29 @@ body {
   color: #eef3ff;
   font-size: 12px;
 }
+
+.catalog-bar { position: sticky; top: 0; z-index: 10; align-items: center; border-bottom: 1px solid #2c3952; }
+.catalog-account, .catalog-cta { display: inline-block; padding: 9px 15px; border-radius: 8px; font-weight: 700; }
+.catalog-body .catalog-account, .catalog-body .catalog-cta { color: #101a28; background: #b7f6d5; }
+.catalog-hero {
+  background: linear-gradient(90deg, #14233b 20%, #14233be8 45%, #14233b55),
+              url('../images/games/1245620.jpg') center right / cover;
+}
+.catalog-hero p { max-width: 36ch; margin: 16px 0 22px; font-size: 16px; }
+.catalog-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+.catalog-tabs a { padding: 8px 12px; border: 1px solid #394967; border-radius: 8px; }
+.catalog-tabs a[aria-current="true"] { color: #101a28; background: #b7f6d5; border-color: #b7f6d5; }
+#catalog-results { scroll-margin-top: 125px; }
+.catalog-count, .catalog-footer { color: #b5c4db; }
+.catalog-count { margin: 14px 0; }
+.catalog-card { display: flex; flex-direction: column; }
+.catalog-card-info { display: flex; flex: 1; flex-direction: column; }
+.catalog-card-info strong { margin-top: auto; }
+.catalog-card:hover { border-color: #78bdab; }
+.catalog-footer { border-top: 1px solid #2c3952; padding: 20px 5%; text-align: center; }
+.catalog-skip:focus { position: fixed; z-index: 20; padding: 10px; background: #171f33; }
+@media (max-width: 560px) {
+  .catalog-bar { position: static; }
+  .catalog-hero { background-position: center; }
+  #catalog-results { scroll-margin-top: 12px; }
+}

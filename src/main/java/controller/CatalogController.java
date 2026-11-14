@@ -6,8 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import model.Game;
 import model.ModelException;
 import model.dao.DAOFactory;
 import model.dao.GameDAO;
@@ -40,7 +42,14 @@ public class CatalogController extends HttpServlet {
             }
             request.setAttribute("filters", filters);
             request.setAttribute("platforms", platforms);
-            request.setAttribute("games", games);
+            String sort = request.getParameter("sort");
+            Comparator<Game> order = switch (sort == null ? "" : sort) {
+                case "price-low" -> Comparator.comparing(Game::preco);
+                case "price-high" -> Comparator.comparing(Game::preco).reversed();
+                case "newest" -> Comparator.comparing(Game::data_lancamento).reversed();
+                default -> Comparator.comparing(Game::titulo, String.CASE_INSENSITIVE_ORDER);
+            };
+            request.setAttribute("games", games.stream().sorted(order.thenComparingInt(Game::id)).toList());
             request.setAttribute("covers", dao.covers());
             ControllerUtil.forward(request, response, "/WEB-INF/catalog.jsp");
         } catch (ModelException e) {
