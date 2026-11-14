@@ -34,6 +34,19 @@ public class MySQLGameDAO implements GameDAO {
         }
     }
 
+    @Override
+    public Map<Integer, Integer> covers() throws ModelException {
+        Map<Integer, Integer> covers = new HashMap<>();
+        try (Connection connection = MySQLConnectionFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT jogo_id, steam_app_id FROM capas_jogos");
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) covers.put(rs.getInt(1), rs.getInt(2));
+            return covers;
+        } catch (SQLException e) {
+            throw new ModelException("Erro ao carregar capas", e);
+        }
+    }
+
     public void save(Game item) throws ModelException {
         boolean insert = item.id() == 0;
         String sql = insert ? "INSERT INTO jogos (titulo, descricao, data_lancamento, preco, usuario_id) VALUES (?, ?, ?, ?, ?)"

@@ -19,6 +19,7 @@
 				<li><a href="${pageContext.request.contextPath}/users"><span class="glyphicon glyphicon-user" /><strong>&nbspUsuários</strong></a></li>
 				<li><a href="${pageContext.request.contextPath}"><span class="glyphicon glyphicon-pencil" /><strong>&nbspPosts</strong></a></li>
 				<li><a href="${pageContext.request.contextPath}/companies"><span class="glyphicon glyphicon-pushpin" /><strong>&nbspEmpresas</strong></a></li>
+                <li><a href="${pageContext.request.contextPath}/catalogo">Catálogo</a></li>
 				<li><a href="${pageContext.request.contextPath}/jogos">Jogos</a></li>
                 <li><a href="${pageContext.request.contextPath}/vendas">Vendas</a></li>
                 <li><form class="navbar-form" method="post" action="${pageContext.request.contextPath}/logout">
