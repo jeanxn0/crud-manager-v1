@@ -4,11 +4,11 @@ Projeto Java Web da Avaliação 2, baseado no CRUD Manager. Usa Java 21, Tomcat 
 
 ## Executar no Eclipse
 
-1. Execute `schema.sql` no MySQL Workbench.
+1. No MySQL Workbench, execute `schema.sql` e depois `catalogo-demo.sql`. Se já tem o banco da versão anterior, execute os dois scripts atualizados na mesma ordem.
 2. Importe a pasta como **Existing Projects into Workspace** e associe o runtime Tomcat 11.
 3. Nas configurações de execução do Tomcat (**Environment**), defina as variáveis abaixo.
 4. Inicie o servidor e abra `http://localhost:8080/crud-manager/` (ajuste conforme o contexto publicado no Eclipse).
-5. Entre, cadastre um usuário responsável, cadastre um jogo e registre uma venda.
+5. Abra `/catalogo` para ver a vitrine ou entre com o administrador para gerenciar Jogos e Vendas.
 
 | Variável | Valor |
 |---|---|
@@ -18,7 +18,7 @@ Projeto Java Web da Avaliação 2, baseado no CRUD Manager. Usa Java 21, Tomcat 
 | `CRUD_LOGIN` | Nome escolhido para o administrador |
 | `CRUD_PASSWORD_HASH` | Hash gerado pelo comando abaixo |
 
-O administrador é configurado no servidor. Os usuários cadastrados pela aplicação são os responsáveis selecionáveis no formulário de Jogos.
+As duas últimas variáveis configuram o administrador. O cadastro público em `/register` cria contas de clientes. Os responsáveis pelos jogos são escolhidos no cadastro administrativo de Usuários.
 
 Com Python instalado, execute no terminal para gerar o hash da senha do administrador. A senha é digitada sem aparecer na tela. Copie a saída para `CRUD_PASSWORD_HASH`.
 
@@ -30,6 +30,19 @@ As listagens exibem até dez registros por página. Jogos com vendas vinculadas 
 
 ## Catálogo e contas
 
-Execute também `catalogo-demo.sql` depois de `schema.sql` para inserir os 42 jogos de demonstração com capas locais da Steam. Os preços são ilustrativos. A vitrine pública fica em `/catalogo` e oferece busca por título e filtro por plataforma.
+A vitrine pública em `/catalogo` tem 42 jogos de demonstração com capas locais da Steam e preços ilustrativos. A busca por título pode ser combinada com os filtros PC, PS4, PS5, Xbox One, Xbox Series e Nintendo Switch.
 
 A página `/register` cadastra clientes por e-mail. Clientes autenticados voltam ao catálogo. A conta administrativa configurada no Tomcat continua acessando os CRUDs.
+
+
+## Avaliação 2
+
+| Requisito | Implementação |
+|---|---|
+| CRUD de Jogos | Título, descrição, lançamento, preço e responsável selecionado entre os usuários |
+| CRUD de Vendas | Jogo selecionado no catálogo, quantidade, valor, data e hora, status do pagamento |
+| Estrutura dos CRUDs | Tabelas com chaves estrangeiras, modelos Java, DAOs no `DAOFactory`, Servlets, páginas JSP e links no menu |
+| Login | Cadastro de clientes com hash PBKDF2, autenticação por sessão, filtro de acesso e logout |
+| Paginação | Até 10 registros por página em Usuários, Empresas, Posts, Jogos e Vendas |
+
+Para demonstrar o projeto, entre como administrador, cadastre um jogo com um usuário responsável e registre uma venda escolhendo esse jogo. Abra uma listagem com mais de 10 registros para mostrar a paginação.
