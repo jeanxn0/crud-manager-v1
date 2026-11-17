@@ -18,7 +18,7 @@ import model.dao.PostDAO;
 @SuppressWarnings("serial")
 // Herda da classe HttpServlet (extends HttpServlet) para ser tratada como um Servlet
 // Anota a classe (@WebServlet) ajustando as URLs (urlPatterns) as quais ela responde
-@WebServlet(urlPatterns = {"", "/posts", "/post/form", "/post/delete", "/post/insert", "/post/update"})
+@WebServlet(urlPatterns = {"/posts", "/post/form", "/post/delete", "/post/insert", "/post/update"})
 public class PostsController extends HttpServlet {
 	
 	// Sobrescreve o método doGet, sendo capaz de responder métodos HTTP GET
@@ -46,7 +46,7 @@ public class PostsController extends HttpServlet {
 			
 			ControllerUtil.transferSessionMessagesToRequest(req);
 		
-			ControllerUtil.forward(req, resp, "/index.jsp");
+			ControllerUtil.forward(req, resp, "/WEB-INF/posts.jsp");
 		}
 	}
 	
@@ -189,7 +189,14 @@ public class PostsController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if (posts != null)
-			Pagination.apply(req, "posts", posts);
+		if (posts != null) {
+            String q = req.getParameter("q");
+            if (q != null && !q.isBlank()) {
+                String search = q.strip().toLowerCase(java.util.Locale.ROOT);
+                posts = posts.stream().filter(p -> p.getContent() != null
+                        && p.getContent().toLowerCase(java.util.Locale.ROOT).contains(search)).toList();
+            }
+            Pagination.apply(req, "posts", posts);
+        }
 	}
 }

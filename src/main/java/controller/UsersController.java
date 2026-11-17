@@ -111,8 +111,17 @@ public class UsersController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if (users != null)
-			Pagination.apply(req, "users", users);
+		if (users != null) {
+            String q = req.getParameter("q");
+            if (q != null && !q.isBlank()) {
+                String search = q.strip().toLowerCase(java.util.Locale.ROOT);
+                users = users.stream().filter(u ->
+                    (u.getName() != null && u.getName().toLowerCase(java.util.Locale.ROOT).contains(search))
+                    || (u.getEmail() != null && u.getEmail().toLowerCase(java.util.Locale.ROOT).contains(search))
+                ).toList();
+            }
+            Pagination.apply(req, "users", users);
+        }
 	}
 	
 	private void insertUser(HttpServletRequest req, HttpServletResponse resp) {

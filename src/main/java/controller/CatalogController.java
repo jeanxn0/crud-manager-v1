@@ -21,6 +21,8 @@ public class CatalogController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ControllerUtil.transferSessionMessagesToRequest(request);
+        request.getSession().setAttribute("purchaseToken", java.util.UUID.randomUUID().toString());
         GameDAO dao = DAOFactory.createDAO(GameDAO.class);
         String query = request.getParameter("q");
         String platform = request.getParameter("platform");

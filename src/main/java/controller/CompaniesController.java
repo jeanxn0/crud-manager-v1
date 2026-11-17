@@ -74,8 +74,17 @@ public class CompaniesController extends HttpServlet{
 			e.printStackTrace();
 		}
 		
-		if (companies != null)
-			Pagination.apply(req, "companies", companies);
+		if (companies != null) {
+            String q = req.getParameter("q");
+            if (q != null && !q.isBlank()) {
+                String search = q.strip().toLowerCase(java.util.Locale.ROOT);
+                companies = companies.stream().filter(c ->
+                    (c.getName() != null && c.getName().toLowerCase(java.util.Locale.ROOT).contains(search))
+                    || (c.getRole() != null && c.getRole().toLowerCase(java.util.Locale.ROOT).contains(search))
+                ).toList();
+            }
+            Pagination.apply(req, "companies", companies);
+        }
 	}
 
 	@Override

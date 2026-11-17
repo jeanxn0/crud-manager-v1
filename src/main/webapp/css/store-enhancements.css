@@ -1,0 +1,105 @@
+/* GameStore 2026: responsivo, com contraste e uso em mobile */
+:root{--brand:#7bf1b5;--ink:#0b1220;--card:#152138;--line:#33415b;--muted:#a9b9d1}
+body{font-family:'Fira Sans','Open Sans',Arial,sans-serif}
+body:not(.catalog-body){background:#f3f5fb;color:#172235}
+#menu{background:#101a2d;border:0;box-shadow:0 8px 26px #111e3530}
+#menu .navbar-brand{display:flex;align-items:center;gap:7px;font-size:16px}
+#menu .navbar-brand strong span,.catalog-brand span,.auth-logo span{color:var(--brand)}
+#menu .navbar-brand small{color:#a9b9d1;font-size:9px;letter-spacing:2px}
+#menu .navbar-nav>li>a{padding:19px 12px;font-size:13px}
+.admin-nav-spacer{height:82px}
+.store-page,.store-home{max-width:1240px;margin:0 auto;padding:0 20px 45px}
+.store-intro{background:linear-gradient(120deg,#101a2d,#27385c);color:white;border-radius:19px;padding:29px 34px;margin:10px 0 24px;box-shadow:0 12px 26px #12203b20}
+.store-intro-label,.eyebrow{font-size:11px;font-weight:800;letter-spacing:2.7px;color:var(--brand);text-transform:uppercase}
+.store-intro h1{font-size:clamp(28px,3vw,39px);font-weight:800;letter-spacing:-.6px}
+.store-intro p:not(.store-intro-label){color:#c7d5ed}
+.dashboard-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.dashboard-hero .btn{background:var(--brand);border:0;color:#102135;font-weight:800;padding:13px 20px;border-radius:10px}
+.dashboard-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.metric-card{background:white;border:1px solid #dde4f0;border-radius:17px;padding:22px 24px;min-height:152px;display:flex;flex-direction:column;gap:10px;box-shadow:0 7px 20px #2436590a;color:#152238;transition:transform .2s,box-shadow .2s}
+.metric-card:hover{transform:translateY(-3px);box-shadow:0 15px 28px #2436591c;text-decoration:none}
+.metric-card>span{font-size:13px;color:#506078;font-weight:700}.metric-card>strong{font-size:32px;line-height:1.2}.metric-card>small{color:#72809a}
+.section-heading{font-size:21px;font-weight:800;margin:34px 0 18px}
+.dashboard-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.dashboard-shortcuts>a{display:flex;flex-direction:column;gap:9px;background:#192641;border-radius:14px;padding:22px;color:#f8fbff;text-decoration:none}
+.dashboard-shortcuts .glyphicon{color:var(--brand);font-size:22px}
+.dashboard-shortcuts strong{font-size:17px}.dashboard-shortcuts small{color:#c0cce0}
+.dashboard-shortcuts>a:hover{background:#263859;text-decoration:none}
+.dashboard-panel{background:white;border:1px solid #dde4f0;border-radius:16px;padding:22px;margin-top:32px}
+.dashboard-panel-heading,.admin-toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin:16px 0}
+.dashboard-panel-heading h2,.admin-toolbar h2{margin:0;font-size:21px;font-weight:800}
+.admin-count{font-size:13px;color:#64748b}
+.store-page .table-responsive{border:1px solid #dde4f0;border-radius:14px;background:white;overflow-x:auto;padding:12px}
+.store-page .table th{border-bottom:1px solid #e6eaf1;color:#63738c;font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+.store-page .table td{vertical-align:middle;border-top:1px solid #eef1f5;padding:13px 9px}
+.store-page .table-striped>tbody>tr:nth-of-type(odd){background:#f9fbfe}
+.store-page .btn{border-radius:8px}
+.store-page .btn-primary{background:#2147a2;border-color:#2147a2}
+.store-page .btn-danger{background:#c44156;border-color:#c44156}
+.store-page .store-form{max-width:880px;padding:25px}
+.store-page .form-control{border-radius:9px;min-height:40px}
+.description-cell{max-width:250px;color:#65748d}
+.status-pill{display:inline-block;padding:5px 10px;border-radius:30px;font-size:11px;font-weight:800;letter-spacing:.4px;white-space:nowrap}
+.status-PENDENTE{color:#885b11;background:#fff3d0}.status-PAGO{color:#146b3c;background:#d7f9e6}.status-CANCELADO{color:#a22d3f;background:#ffe0e5}
+.catalog-body{background:#0a101d;color:#f1f5ff}
+.catalog-bar{background:#0d1628ef;border-bottom:1px solid #27334b;padding:16px max(5%, calc((100% - 1240px)/2));backdrop-filter:blur(16px)}
+.catalog-brand{font-weight:900;letter-spacing:-1px;font-size:23px;color:#f6f9ff!important;text-decoration:none!important}
+.catalog-bar nav a{color:#c6d5ea;text-decoration:none;font-weight:600}
+.catalog-bar nav a:hover{color:var(--brand)}
+.catalog-bar nav{gap:20px}.catalog-link{cursor:pointer;font-weight:700;color:#d0e3f5}
+.catalog-main{width:min(91%,1240px);margin-top:24px}
+.catalog-hero{border:1px solid #354563;min-height:315px;border-radius:20px;background:linear-gradient(90deg,#0d1729 10%,#101d33eb 46%,#15233c5c),url('../images/games/1245620.jpg') center right/cover;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:48px}
+.catalog-hero h1{margin:13px 0;font-size:clamp(34px,5vw,59px);line-height:1.08;letter-spacing:-1.5px}
+.catalog-hero p{max-width:390px;color:#d8e5f4}
+.catalog-body .catalog-cta,.catalog-body .catalog-account{background:var(--brand);color:#102036;padding:11px 17px;border-radius:9px}
+.catalog-tabs{gap:10px}.catalog-tabs a{border-radius:40px;color:#d9e4f7;border-color:#34435c;padding:9px 15px}
+.catalog-tabs a[aria-current=true]{background:var(--brand);color:#0f2631;border-color:var(--brand)}
+.catalog-section-title{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:26px 0 15px}
+.catalog-section-title h2{margin:7px 0 0;font-size:30px;font-weight:800}
+.catalog-count{font-size:13px}.catalog-search{background:#121d31;border:1px solid #2c3b55;padding:14px;border-radius:12px;margin:12px 0 24px}
+.catalog-search input{flex:1;min-width:170px}.catalog-search input,.catalog-search select{height:43px;background:#f7f9fe;color:#142035}
+.catalog-search button{background:var(--brand);height:43px}
+.catalog-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,245px),1fr));gap:18px}
+.catalog-card{border-radius:15px;border-color:#293a53;background:#152039;transition:transform .2s,border-color .2s,box-shadow .2s}
+.catalog-card:hover{transform:translateY(-4px);box-shadow:0 20px 32px #0005;border-color:var(--brand)}
+.catalog-card img,.catalog-placeholder{aspect-ratio:460/245;object-fit:cover}
+.catalog-card-info{padding:16px;gap:7px}
+.catalog-card-info h3{font-size:17px;font-weight:800;min-height:40px;line-height:1.25}
+.catalog-description{font-size:12px;color:#9eafc8;line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;min-height:34px}
+.catalog-card-bottom{margin-top:auto}.catalog-card-bottom>strong{display:block;margin:6px 0 12px;font-size:22px;color:var(--brand)}
+.catalog-buy-form{display:flex;gap:7px}.catalog-buy-form select{width:85px;border-radius:9px;background:#263854;border:1px solid #455774;color:#fff;padding:8px}
+.buy-button{border:0;border-radius:9px;background:var(--brand);color:#102036;font-weight:800;padding:10px 15px;flex:1;cursor:pointer}
+.buy-button:hover{background:#9dffcf}
+.catalog-empty{padding:30px;color:#a9b9d1}
+.customer-feedback{border:1px solid #7bf1b5;color:#d9ffe9;background:#1b463a;padding:15px 18px;border-radius:12px;margin:18px 0}
+.orders-heading{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;margin:50px 0 25px}
+.orders-heading h1{font-size:38px;font-weight:800;margin:10px 0}.orders-heading p:not(.eyebrow){color:#a9b9d1}
+.orders-table{overflow-x:auto;border:1px solid #293a53;background:#152039;border-radius:15px}
+.orders-table table{width:100%;border-collapse:collapse;min-width:660px}
+.orders-table th{color:#a9b9d1;font-size:12px;text-transform:uppercase;letter-spacing:.5px;padding:18px;text-align:left}
+.orders-table td{padding:18px;border-top:1px solid #2b3950}
+.customer-pagination .store-pagination a{color:var(--brand)}
+.orders-note{color:#a9b9d1;font-size:12px;margin-top:27px}
+.auth-body{min-height:100vh;background:linear-gradient(105deg,#081121ec 3%,#081121ca 50%,#081121c2),url('../images/games/1245620.jpg') center center/cover fixed}
+.auth-logo{display:inline-block;margin:34px max(5%, calc((100% - 1180px)/2));font-size:25px;font-weight:900;letter-spacing:-1px;color:white!important}
+.auth-layout{width:min(90%,1180px);margin:5vh auto 9vh;display:grid;grid-template-columns:1.1fr minmax(300px,440px);align-items:center;gap:clamp(28px,7vw,100px)}
+.auth-story .eyebrow{color:var(--brand)}
+.auth-story h1{font-weight:900;letter-spacing:-1.8px;line-height:1.1;font-size:clamp(36px,5vw,64px);max-width:520px;margin:20px 0}
+.auth-story>p{max-width:410px;color:#d2dfed;font-size:17px;line-height:1.6}
+.auth-story-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:34px}
+.auth-story-badges span{font-size:10px;font-weight:800;letter-spacing:1px;background:#d7e9ff18;border:1px solid #b6cce950;padding:8px 11px;border-radius:40px}
+.auth-panel{background:#111c30ed;border:1px solid #465574;border-radius:22px;padding:clamp(24px,3vw,40px);box-shadow:0 22px 70px #0008;backdrop-filter:blur(16px)}
+.auth-panel-head h2{font-size:32px;font-weight:800;margin:8px 0}.auth-panel-head>p:last-child{color:#a9b9d1;margin-bottom:25px}
+.auth-form{display:flex;flex-direction:column;gap:10px}
+.auth-form label{font-weight:700;font-size:13px}
+.auth-form input{width:100%;height:48px;border-radius:10px;border:1px solid #52617a;background:#0e1829;color:#fff;padding:12px 15px;margin-bottom:8px;outline-color:var(--brand)}
+.auth-form input::placeholder{color:#7888a5}
+.auth-submit{margin-top:12px;border:0;background:var(--brand);color:#0e2733;font-weight:900;padding:15px;border-radius:10px;display:flex;justify-content:space-between;cursor:pointer}
+.auth-submit:hover{background:#a0ffce}
+.auth-switch{text-align:center;margin:22px 0 5px;color:#b7c5dd}.auth-switch a{font-weight:800;color:var(--brand)}
+.auth-disclaimer{text-align:center;font-size:11px;color:#8192ad;margin-top:16px}
+.auth-alert,.auth-success{padding:12px;border-radius:10px;margin-bottom:16px;color:#fff;background:#8a3248}
+.auth-success{background:#1b664d}
+@media(max-width:950px){.dashboard-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}.auth-layout{grid-template-columns:1fr;max-width:600px;margin-top:0}.auth-story h1{font-size:38px}.auth-story-badges{margin-top:16px}}
+@media(max-width:650px){#menu .navbar-nav>li>a{padding:13px 18px}.admin-nav-spacer{height:75px}.store-page{padding:0 14px 25px}.store-intro{padding:24px 20px}.dashboard-metrics{gap:10px}.metric-card{padding:17px;min-height:130px}.metric-card strong{font-size:23px}.dashboard-shortcuts{gap:10px}.dashboard-shortcuts>a{padding:18px}.catalog-bar nav{gap:10px}.catalog-brand{font-size:19px}.catalog-hero{padding:28px;min-height:265px;background-position:center}.catalog-section-title{align-items:flex-start;flex-direction:column}.catalog-main{width:94%}.catalog-search{align-items:stretch}.catalog-search>*{flex:1}.auth-logo{margin:18px 5%}.auth-layout{width:92%}.auth-story h1{font-size:31px}.auth-story>p{font-size:14px}.auth-panel{padding:23px}.orders-heading h1{font-size:29px}}
+@media(prefers-reduced-motion:reduce){.metric-card,.catalog-card{transition:none}}

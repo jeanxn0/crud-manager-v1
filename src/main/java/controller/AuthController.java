@@ -49,6 +49,8 @@ public class AuthController extends HttpServlet {
                 request.changeSessionId();
                 request.getSession().setAttribute("authenticated", true);
                 request.getSession().setAttribute("admin", admin);
+                request.getSession().setAttribute("accountId", admin ? null
+                        : new AccountDAO().findId(login.strip().toLowerCase(Locale.ROOT)));
                 request.getSession().setAttribute("csrf", java.util.UUID.randomUUID().toString());
                 response.sendRedirect(request.getContextPath() + (admin ? "/" : "/catalogo"));
                 return;

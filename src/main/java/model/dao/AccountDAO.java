@@ -29,4 +29,16 @@ public class AccountDAO {
             throw new ModelException("Erro ao buscar conta", e);
         }
     }
+
+    public Integer findId(String email) throws ModelException {
+        try (var connection = MySQLConnectionFactory.getConnection();
+             var statement = connection.prepareStatement("SELECT id FROM contas WHERE email = ?")) {
+            statement.setString(1, email);
+            try (var rows = statement.executeQuery()) {
+                return rows.next() ? rows.getInt(1) : null;
+            }
+        } catch (SQLException e) {
+            throw new ModelException("Erro ao identificar conta", e);
+        }
+    }
 }

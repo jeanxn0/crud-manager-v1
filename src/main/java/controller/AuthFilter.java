@@ -31,7 +31,7 @@ public class AuthFilter implements Filter {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        if (!publicPage && !"/logout".equals(path) && !"/catalogo".equals(path) && !Boolean.TRUE.equals(session.getAttribute("admin"))) {
+        if (!publicPage && !"/logout".equals(path) && !"/catalogo".equals(path) && !"/comprar".equals(path) && !"/minhas-compras".equals(path) && !Boolean.TRUE.equals(session.getAttribute("admin"))) {
             if ("GET".equals(request.getMethod()) && (path.isEmpty() || "/".equals(path) || "/index.jsp".equals(path))) {
                 response.sendRedirect(request.getContextPath() + "/catalogo");
             } else {

@@ -1,0 +1,7 @@
+.admin-search{display:flex;align-items:center;gap:9px;margin:16px 0 20px;flex-wrap:wrap}
+.admin-search .form-control{min-height:41px;flex:1;min-width:180px;max-width:520px;border-radius:9px}
+.admin-search .btn{padding:10px 15px;border-radius:9px}
+.store-page .store-pagination{margin:20px auto}
+.store-page .store-pagination a{background:white;border:1px solid #dbe2ef;border-radius:8px;padding:9px 15px;text-decoration:none;font-weight:700}
+.store-page .store-pagination a:hover{background:#e5eeff}
+@media(max-width:600px){.admin-search .form-control{flex-basis:100%;max-width:none}}

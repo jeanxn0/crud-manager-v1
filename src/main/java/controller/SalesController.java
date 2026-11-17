@@ -22,6 +22,16 @@ public class SalesController extends HttpServlet {
         try {
             ControllerUtil.transferSessionMessagesToRequest(request);
             var rows = dao.list();
+            String q = request.getParameter("q");
+            if (q != null && !q.isBlank()) {
+                String search = q.strip().toLowerCase(java.util.Locale.ROOT);
+                var names = dao.options();
+                rows = rows.stream().filter(sale ->
+                    sale.status_pagamento().toLowerCase(java.util.Locale.ROOT).contains(search)
+                    || String.valueOf(sale.id()).equals(search)
+                    || names.getOrDefault(sale.jogo_id(), "").toLowerCase(java.util.Locale.ROOT).contains(search)
+                ).toList();
+            }
             String id = request.getParameter("id");
             String action = request.getParameter("action");
             if ("new".equals(action) || "edit".equals(action) || "delete".equals(action)) {
@@ -39,6 +49,8 @@ public class SalesController extends HttpServlet {
                 return;
             }
             request.setAttribute("options", dao.options());
+            request.setAttribute("buyers", dao.buyers());
+            request.setAttribute("totalRows", rows.size());
             Pagination.apply(request, "rows", rows);
             ControllerUtil.forward(request, response, "/WEB-INF/sales.jsp");
         } catch (ModelException e) {
@@ -58,7 +70,7 @@ public class SalesController extends HttpServlet {
                 dao.delete(id);
                 ControllerUtil.sucessMessage(request, "Registro excluído.");
             } else {
-                Sale item = new Sale(id, Integer.parseInt(request.getParameter("jogo_id")), Integer.parseInt(request.getParameter("quantidade")), new BigDecimal(request.getParameter("valor_total")), LocalDateTime.parse(request.getParameter("data_venda")), request.getParameter("status_pagamento").strip());
+                Sale item = new Sale(id, Integer.parseInt(request.getParameter("jogo_id")), Integer.parseInt(request.getParameter("quantidade")), new BigDecimal(request.getParameter("valor_total")), LocalDateTime.parse(request.getParameter("data_venda")), request.getParameter("status_pagamento").strip(), null);
                 if (item.quantidade() <= 0 || item.jogo_id() <= 0 || item.valor_total().signum() < 0 || item.valor_total().scale() > 2 || !List.of("PENDENTE", "PAGO", "CANCELADO").contains(item.status_pagamento())) throw new IllegalArgumentException();
                 dao.save(item);
                 ControllerUtil.sucessMessage(request, "Registro salvo.");
