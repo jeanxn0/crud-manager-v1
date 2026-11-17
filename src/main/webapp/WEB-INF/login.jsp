@@ -15,7 +15,6 @@
         <button class="btn btn-primary" type="submit">Entrar</button>
         <a href="${pageContext.request.contextPath}/register">Criar conta</a>
     </form>
-    <a href="${pageContext.request.contextPath}/catalogo">Voltar ao catálogo</a>
 </main>
 </body>
 </html>

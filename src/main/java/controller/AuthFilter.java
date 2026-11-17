@@ -25,13 +25,13 @@ public class AuthFilter implements Filter {
                 if (session.getAttribute("csrf") == null) session.setAttribute("csrf", UUID.randomUUID().toString());
             }
         }
-        boolean publicPage = "/login".equals(path) || "/register".equals(path) || "/catalogo".equals(path);
+        boolean publicPage = "/login".equals(path) || "/register".equals(path);
         boolean authenticated = Boolean.TRUE.equals(session.getAttribute("authenticated"));
         if (!publicPage && !authenticated) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        if (!publicPage && !"/logout".equals(path) && !Boolean.TRUE.equals(session.getAttribute("admin"))) {
+        if (!publicPage && !"/logout".equals(path) && !"/catalogo".equals(path) && !Boolean.TRUE.equals(session.getAttribute("admin"))) {
             if ("GET".equals(request.getMethod()) && (path.isEmpty() || "/".equals(path) || "/index.jsp".equals(path))) {
                 response.sendRedirect(request.getContextPath() + "/catalogo");
             } else {

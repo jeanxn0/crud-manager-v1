@@ -22,14 +22,19 @@
         <option value="${option.key}" ${not empty item and item.jogo_id() eq option.key ? 'selected' : ''}><c:out value="${option.value}"/></option>
       </c:forEach>
     </select></div>
-    <div class="form-group"><label for="quantidade">Quantidade</label><input class="form-control" id="quantidade" name="quantidade" type="number" value='<c:out value="${item.quantidade()}"/>' min="1" step="1" required></div>
+    <div class="form-group"><label for="quantidade">Quantidade</label><input class="form-control" id="quantidade" name="quantidade" type="text" inputmode="numeric" pattern="[1-9][0-9]*" value='<c:out value="${item.quantidade()}"/>' required></div>
     <div class="form-group"><label for="valor_total">Valor total</label><input class="form-control" id="valor_total" name="valor_total" type="number" value='<c:out value="${item.valor_total()}"/>' min="0" step="0.01" required></div>
     <div class="form-group"><label for="data_venda">Data e hora</label><input class="form-control" id="data_venda" name="data_venda" type="datetime-local" value='<c:out value="${item.data_venda()}"/>' required></div>
-    <div class="form-group"><label for="status_pagamento">Pagamento</label><select class="form-control" id="status_pagamento" name="status_pagamento" required>
+    <fieldset class="form-group">
+      <legend>Pagamento</legend>
       <c:forTokens var="status" items="PENDENTE,PAGO,CANCELADO" delims=",">
-        <option value="${status}" ${not empty item and item.status_pagamento() eq status ? 'selected' : ''}>${status}</option>
+        <label class="radio-inline">
+          <input type="radio" name="status_pagamento" value="${status}"
+                 ${(empty item and status eq 'PENDENTE') or (not empty item and item.status_pagamento() eq status) ? 'checked' : ''} required>
+          ${status}
+        </label>
       </c:forTokens>
-    </select></div>
+    </fieldset>
     <button class="btn btn-primary" name="action" value="save">Salvar</button>
 </c:otherwise>
 </c:choose>
