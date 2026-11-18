@@ -9,7 +9,7 @@ import java.util.List;
 import model.CustomerAccount;
 import model.ModelException;
 
-/** Clientes cadastrados pela loja, usados em Usuarios, Posts e Empresas. */
+
 public class CustomerDAO {
 
     public List<CustomerAccount> list() throws ModelException {
