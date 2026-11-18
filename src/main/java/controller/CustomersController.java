@@ -11,10 +11,10 @@ import java.util.Locale;
 import model.ModelException;
 import model.dao.CustomerDAO;
 
-/**
- * A pagina Usuarios (e o alias Clientes) lista contas reais da loja.
- * O CRUD original de responsaveis de jogos fica em /usuarios-internos.
- */
+ 
+
+
+
 @WebServlet({"/users", "/clientes"})
 public class CustomersController extends HttpServlet {
 
