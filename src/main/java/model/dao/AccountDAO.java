@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import model.ModelException;
 
-/** Contas que podem entrar na loja e fazer compras. */
+
 public class AccountDAO {
 
     public boolean register(String nome, String sexo, String email, String hash)
