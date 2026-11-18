@@ -63,33 +63,33 @@
                     </c:if>
                     <c:forEach var="row" items="${rows}">
                         <tr>
-                            <td><c:out value="${options[row.jogo_id()]}"/></td>
+                            <td><c:out value="${options[row.jogo_id]}"/></td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${not empty row.conta_id()}">
-                                        <c:out value="${buyers[row.conta_id()]}"/>
+                                    <c:when test="${not empty row.conta_id}">
+                                        <c:out value="${buyers[row.conta_id]}"/>
                                     </c:when>
                                     <c:otherwise>Registro manual</c:otherwise>
                                 </c:choose>
                             </td>
-                            <td>${row.quantidade()}</td>
+                            <td>${row.quantidade}</td>
                             <td>
-                                <fmt:formatNumber value="${row.valor_total()}" type="currency"
+                                <fmt:formatNumber value="${row.valor_total}" type="currency"
                                                   currencyCode="BRL"/>
                             </td>
-                            <td><c:out value="${row.data_venda()}"/></td>
+                            <td><c:out value="${row.data_venda}"/></td>
                             <td>
-                                <span class="status-pill status-${row.status_pagamento()}">
-                                    <c:out value="${row.status_pagamento()}"/>
+                                <span class="status-pill status-${row.status_pagamento}">
+                                    <c:out value="${row.status_pagamento}"/>
                                 </span>
                             </td>
                             <td>
                                 <a class="btn btn-default btn-sm"
-                                   href="${pageContext.request.contextPath}/vendas?action=edit&amp;id=${row.id()}">
+                                   href="${pageContext.request.contextPath}/vendas?action=edit&amp;id=${row.id}">
                                     Editar
                                 </a>
                                 <a class="btn btn-danger btn-sm"
-                                   href="${pageContext.request.contextPath}/vendas?action=delete&amp;id=${row.id()}">
+                                   href="${pageContext.request.contextPath}/vendas?action=delete&amp;id=${row.id}">
                                     Excluir
                                 </a>
                             </td>
