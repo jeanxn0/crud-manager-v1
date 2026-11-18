@@ -12,6 +12,7 @@
     <a class="btn btn-success" href="${pageContext.request.contextPath}/jogos?action=new">+ Novo jogo</a>
   </header>
   <c:if test="${not empty message}"><div class="store-feedback" role="status"><c:out value="${message}"/></div></c:if>
+  <c:if test="${not empty dashboardError}"><p role="alert" class="store-feedback"><c:out value="${dashboardError}"/></p></c:if>
   <div class="dashboard-metrics">
     <a class="metric-card" href="${pageContext.request.contextPath}/jogos"><span>Jogos cadastrados</span><strong>${stats.games()}</strong><small>Gerenciar catálogo</small></a>
     <a class="metric-card" href="${pageContext.request.contextPath}/vendas"><span>Pedidos recebidos</span><strong>${stats.orders()}</strong><small>Consultar vendas</small></a>
@@ -29,6 +30,7 @@
     <a href="${pageContext.request.contextPath}/posts"><span class="glyphicon glyphicon-comment"></span><strong>Posts</strong><small>${stats.posts()} publicações</small></a>
     <a href="${pageContext.request.contextPath}/catalogo"><span class="glyphicon glyphicon-eye-open"></span><strong>Ver loja</strong><small>Visualizar catálogo</small></a>
   </div>
+  <c:if test="${not empty salesError}"><p role="alert" class="store-feedback"><c:out value="${salesError}"/></p></c:if>
   <section class="dashboard-panel">
     <div class="dashboard-panel-heading"><h2>Últimas vendas</h2><a href="${pageContext.request.contextPath}/vendas">Ver todas</a></div>
     <div class="table-responsive"><table class="table">

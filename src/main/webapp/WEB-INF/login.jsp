@@ -55,8 +55,7 @@
                             <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                             <input id="password" name="password" type="password" autocomplete="current-password"
                                    placeholder="Digite sua senha" maxlength="1024" required>
-                            <button class="login-show" type="button" aria-controls="password"
-                                    aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+                            <button class="login-show" type="button" data-password-toggle data-target="password" aria-controls="password" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
                         </div>
                     </div>
                     <button class="login-submit" type="submit">
@@ -75,19 +74,6 @@
             <div class="login-copyright">© GameStore · Projeto acadêmico demonstrativo</div>
         </section>
     </main>
-    <script>
-    (function () {
-        var button = document.querySelector('.login-show');
-        var password = document.getElementById('password');
-        if (!button || !password) return;
-        button.addEventListener('click', function () {
-            var isVisible = password.type === 'text';
-            password.type = isVisible ? 'password' : 'text';
-            button.textContent = isVisible ? 'Mostrar' : 'Ocultar';
-            button.setAttribute('aria-label', isVisible ? 'Mostrar senha' : 'Ocultar senha');
-            button.setAttribute('aria-pressed', String(!isVisible));
-        });
-    }());
-    </script>
+    <script src="${pageContext.request.contextPath}/js/password-visibility.js"></script>
 </body>
 </html>

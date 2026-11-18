@@ -55,3 +55,6 @@
 @media(max-width:760px){.login-stage{display:flex;flex-direction:column;align-items:stretch;gap:24px;padding:18px 0 36px;min-height:unset}.login-feature{max-width:540px;padding:0}.login-feature h1{font-size:40px;margin:17px 0 12px}.login-feature>p{font-size:14px;line-height:1.5}.login-platforms{margin:16px 0 0}.login-game-signature{display:none}.login-shell{align-self:center;max-width:520px}.login-topbar{padding:18px 0}.login-topbar-caption{display:none}.auth-v2::after{background:linear-gradient(140deg,#050a13f0,#071322da)}}
 @media(max-width:460px){.login-feature h1{font-size:33px;letter-spacing:-1.2px}.login-card{padding:26px 22px 25px;border-radius:18px}.login-topbar{padding:12px 0}.login-brand{font-size:19px!important}.login-platforms span{font-size:9px;padding:7px}.login-security-note{font-size:10px}.login-card h2{font-size:26px}}
 @media(prefers-reduced-motion:reduce){.login-submit,.login-field-control{transition:none}}
+
+.login-show{white-space:nowrap;min-width:59px;min-height:32px;position:relative;z-index:1;cursor:pointer}
+.login-show:focus-visible,.register-show:focus-visible{outline:2px solid #b6ffe4;outline-offset:3px}

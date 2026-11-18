@@ -11,7 +11,27 @@ public class MySQLSaleDAO implements SaleDAO {
     private Sale from(ResultSet rs) throws SQLException {
         return new Sale(rs.getInt("id"), rs.getInt("jogo_id"), rs.getInt("quantidade"),
                 rs.getBigDecimal("valor_total"), rs.getTimestamp("data_venda").toLocalDateTime(),
-                rs.getString("status_pagamento"), (Integer) rs.getObject("conta_id"));
+                rs.getString("status_pagamento"), readAccountId(rs));
+    }
+
+
+    // Compatibilidade: bases antigas podem ainda não ter recebido migration-compras.sql.
+    // O painel admin deve abrir mesmo antes da migração; compras novas exigem a coluna.
+    private Integer readAccountId(ResultSet rs) throws SQLException {
+        try {
+            return (Integer) rs.getObject("conta_id");
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 0 && e.getMessage() != null
+                    && e.getMessage().toLowerCase(java.util.Locale.ROOT).contains("column")) {
+                return null;
+            }
+            // MySQL Connector/J normalmente informa "Column 'conta_id' not found".
+            if (e.getMessage() != null &&
+                    (e.getMessage().contains("conta_id") || e.getMessage().contains("Column"))) {
+                return null;
+            }
+            throw e;
+        }
     }
 
     public List<Sale> list() throws ModelException {

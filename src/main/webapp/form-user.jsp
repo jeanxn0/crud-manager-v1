@@ -1,60 +1,21 @@
-<jsp:directive.page contentType="text/html; charset=UTF-8" />
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="pt-br">
-	<head>
-		<%@include file="base-head.jsp"%>
-	</head>
-	<body>
-		<%@include file="nav-menu.jsp"%>
-			
-		<div id="container" class="container-fluid">
-			<h3 class="page-header">Adicionar Usuário</h3>
-
-			<form action="${pageContext.request.contextPath}/user/${action}" method="POST">
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html><html lang="pt-BR">
+<head><title>Cadastro de usuário | GameStore</title><%@ include file="base-head.jsp" %></head>
+<body><%@ include file="nav-menu.jsp" %>
+<main class="container store-page">
+<header class="store-intro"><p class="store-intro-label">USUÁRIOS</p><h1>${not empty user ? 'Editar usuário' : 'Novo usuário'}</h1><p>Preencha os dados para manter os cadastros atualizados.</p></header>
+<section class="store-form">
+<form action="${pageContext.request.contextPath}/user/${action}" method="post">
 <input type="hidden" name="csrf" value="${sessionScope.csrf}">
-				<input type="hidden" value="${user.getId()}" name="userId">
-				<div class="row">
-					<div class="form-group col-md-4">
-					<label for="name">Nome</label>
-						<input type="text" class="form-control" id="name" name="name" 
-							   autofocus="autofocus" placeholder="Nome do usuário" 
-							   required oninvalid="this.setCustomValidity('Por favor, informe o nome do usuário.')"
-							   oninput="setCustomValidity('')"
-							   value="${user.getName()}">
-					</div>
-
-					<div class="form-group col-md-4">
-						<label for="gender">Sexo</label>
-						<select id="gender" class="form-control selectpicker" name="gender" 
-							    required oninvalid="this.setCustomValidity('Por favor, informe o sexo')"
-							    oninput="setCustomValidity('')">
-					      <option value="" disabled ${not empty user ? "" : "selected"}>Selecione o sexo</option>
-						  <option value="F" ${user.getGender() == 'F' ? "selected" : ""}>Feminino</option>
-						  <option value="M" ${user.getGender() == 'M' ? "selected" : ""}>Masculino</option>
-						</select>
-					</div>
-					
-					<div class="form-group col-md-4">
-					<label for="mail">E-mail</label>
-						<input type="email" class="form-control" id="mail" name="mail" 
-							   autofocus="autofocus" placeholder="E-mail do usuário" 
-							   required oninvalid="this.setCustomValidity('Por favor, informe o email do usuário.')"
-							   oninput="setCustomValidity('')"
-							   value="${user.getEmail()}">
-					</div>
-				</div>
-				<hr />
-				<div id="actions" class="row pull-right">
-					<div class="col-md-12">
-						<a href="${pageContext.request.contextPath}/users" class="btn btn-default">Cancelar</a>
-						<button type="submit" class="btn btn-primary">${not empty user ? "Alterar Usuário" : "Cadastrar Usuário"}</button>
-					</div>
-				</div>
-			</form>
-		</div>
-
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-	</body>
-</html>
+<input type="hidden" name="userId" value="${user.getId()}">
+<div class="row">
+ <div class="form-group col-md-5"><label for="name">Nome</label><input class="form-control" type="text" id="name" name="name" maxlength="150" value="<c:out value='${user.getName()}'/>" required autofocus></div>
+ <div class="form-group col-md-3"><label for="gender">Sexo</label><select class="form-control" id="gender" name="gender" required><option value="">Selecione</option><option value="F" ${user.getGender() eq 'F' ? 'selected' : ''}>Feminino</option><option value="M" ${user.getGender() eq 'M' ? 'selected' : ''}>Masculino</option></select></div>
+ <div class="form-group col-md-4"><label for="mail">E-mail</label><input class="form-control" type="email" id="mail" name="mail" maxlength="254" value="<c:out value='${user.getEmail()}'/>" required></div>
+</div>
+<div class="form-actions"><button type="submit" class="btn btn-primary">${not empty user ? 'Salvar alterações' : 'Cadastrar usuário'}</button><a class="btn btn-default" href="${pageContext.request.contextPath}/users">Cancelar</a></div>
+</form>
+</section></main>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script><script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+</body></html>

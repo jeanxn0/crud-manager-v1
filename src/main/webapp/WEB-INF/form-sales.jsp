@@ -6,7 +6,7 @@
 <body>
 <%@ include file="../nav-menu.jsp" %>
 <main class="container store-page">
-<header class="store-intro"><h1>Vendas</h1></header>
+<header class="store-intro"><p class="store-intro-label">ADMINISTRAÇÃO</p><h1>${param.action eq 'new' ? 'Nova venda' : param.action eq 'delete' ? 'Excluir venda' : 'Editar venda'}</h1><p>Registre ou atualize uma venda do catálogo.</p></header>
 <form class="store-form" action="${pageContext.request.contextPath}/vendas" method="post">
 <input type="hidden" name="csrf" value="${sessionScope.csrf}">
 <input type="hidden" name="id" value="${empty item ? 0 : item.id()}">
@@ -24,7 +24,7 @@
     </select></div>
     <div class="form-group"><label for="quantidade">Quantidade</label><input class="form-control" id="quantidade" name="quantidade" type="text" inputmode="numeric" pattern="[1-9][0-9]*" value='<c:out value="${item.quantidade()}"/>' required></div>
     <div class="form-group"><label for="valor_total">Valor total</label><input class="form-control" id="valor_total" name="valor_total" type="number" value='<c:out value="${item.valor_total()}"/>' min="0" step="0.01" required></div>
-    <div class="form-group"><label for="data_venda">Data e hora</label><input class="form-control" id="data_venda" name="data_venda" type="datetime-local" value='<c:out value="${item.data_venda()}"/>' required></div>
+    <div class="form-group"><label for="data_venda">Data e hora</label><input class="form-control" id="data_venda" name="data_venda" type="datetime-local" value="${saleDateTime}" required></div>
     <fieldset class="form-group">
       <legend>Pagamento</legend>
       <c:forTokens var="status" items="PENDENTE,PAGO,CANCELADO" delims=",">
@@ -35,7 +35,7 @@
         </label>
       </c:forTokens>
     </fieldset>
-    <button class="btn btn-primary" name="action" value="save">Salvar</button>
+    <button class="btn btn-primary" name="action" value="save">Salvar venda</button>
 </c:otherwise>
 </c:choose>
     <a class="btn btn-default" href="${pageContext.request.contextPath}/vendas">Voltar</a>

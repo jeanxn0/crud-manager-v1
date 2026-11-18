@@ -22,8 +22,9 @@ public class SalesController extends HttpServlet {
         try {
             ControllerUtil.transferSessionMessagesToRequest(request);
             var rows = dao.list();
+            String action = request.getParameter("action");
             String q = request.getParameter("q");
-            if (q != null && !q.isBlank()) {
+            if (action == null && q != null && !q.isBlank()) {
                 String search = q.strip().toLowerCase(java.util.Locale.ROOT);
                 var names = dao.options();
                 rows = rows.stream().filter(sale ->
@@ -33,8 +34,8 @@ public class SalesController extends HttpServlet {
                 ).toList();
             }
             String id = request.getParameter("id");
-            String action = request.getParameter("action");
             if ("new".equals(action) || "edit".equals(action) || "delete".equals(action)) {
+                request.setAttribute("saleDateTime", java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
                 if (!"new".equals(action)) {
                     int selected = Integer.parseInt(id == null ? "" : id);
                     Sale item = rows.stream().filter(row -> row.id() == selected).findFirst().orElse(null);
@@ -43,6 +44,7 @@ public class SalesController extends HttpServlet {
                         return;
                     }
                     request.setAttribute("item", item);
+                    request.setAttribute("saleDateTime", item.data_venda().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
                 }
                 request.setAttribute("options", dao.options());
                 ControllerUtil.forward(request, response, "/WEB-INF/form-sales.jsp");

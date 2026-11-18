@@ -1,12 +1,12 @@
 <c:if test="${totalPages gt 1}">
     <nav class="store-pagination" aria-label="Paginação">
         <c:if test="${currentPage gt 1}">
-            <c:url var="prevUrl" value="${pageContext.request.servletPath}"><c:param name="page" value="${currentPage - 1}"/><c:param name="q" value="${param.q}"/></c:url>
+            <c:url var="prevUrl" value="${paginationPath}"><c:param name="page" value="${currentPage - 1}"/><c:param name="q" value="${param.q}"/></c:url>
             <a href="<c:out value='${prevUrl}'/>">Anterior</a>
         </c:if>
         <span>Página ${currentPage} de ${totalPages}</span>
         <c:if test="${currentPage lt totalPages}">
-            <c:url var="nextUrl" value="${pageContext.request.servletPath}"><c:param name="page" value="${currentPage + 1}"/><c:param name="q" value="${param.q}"/></c:url>
+            <c:url var="nextUrl" value="${paginationPath}"><c:param name="page" value="${currentPage + 1}"/><c:param name="q" value="${param.q}"/></c:url>
             <a href="<c:out value='${nextUrl}'/>">Próxima</a>
         </c:if>
     </nav>

@@ -21,13 +21,14 @@ public class GamesController extends HttpServlet {
         try {
             ControllerUtil.transferSessionMessagesToRequest(request);
             var rows = dao.list();
+            String action = request.getParameter("action");
+            // Editar/excluir deve funcionar independentemente do filtro usado na listagem.
             String q = request.getParameter("q");
-            if (q != null && !q.isBlank()) {
+            if (action == null && q != null && !q.isBlank()) {
                 String search = q.strip().toLowerCase(java.util.Locale.ROOT);
                 rows = rows.stream().filter(game -> game.titulo().toLowerCase(java.util.Locale.ROOT).contains(search)).toList();
             }
             String id = request.getParameter("id");
-            String action = request.getParameter("action");
             if ("new".equals(action) || "edit".equals(action) || "delete".equals(action)) {
                 if (!"new".equals(action)) {
                     int selected = Integer.parseInt(id == null ? "" : id);

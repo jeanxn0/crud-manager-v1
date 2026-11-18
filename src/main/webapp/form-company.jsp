@@ -1,101 +1,32 @@
-<jsp:directive.page contentType="text/html; charset=UTF-8" />
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<%@include file="base-head.jsp"%>
-</head>
-<body>
-	<%@include file="nav-menu.jsp"%>
-	
-	<div id="container" class="container-fluid">
-		<h3 class="page-header">${not empty company ? 'Atualizar' : 'Adicionar'} Empresa</h3>
-		
-		<form action="${pageContext.request.contextPath}/company/${action}" 
-			method="POST">
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html><html lang="pt-BR">
+<head><title>Cadastro de empresa | GameStore</title><%@ include file="base-head.jsp" %></head>
+<body><%@ include file="nav-menu.jsp" %>
+<main class="container store-page">
+<header class="store-intro"><p class="store-intro-label">EMPRESAS</p><h1>${not empty company ? 'Editar empresa' : 'Nova empresa'}</h1><p>Cadastre uma empresa e associe-a a um usuário existente.</p></header>
+<section class="store-form">
+<c:if test="${not empty company}">
+<fmt:formatDate var="companyStart" value="${company.getStart()}" pattern="yyyy-MM-dd"/>
+<fmt:formatDate var="companyEnd" value="${company.getEnd()}" pattern="yyyy-MM-dd"/>
+</c:if>
+<form action="${pageContext.request.contextPath}/company/${action}" method="post">
 <input type="hidden" name="csrf" value="${sessionScope.csrf}">
-			
-			<input type="hidden" value="${company.getId()}" name="companyId">
-			
-			<div class="row">
-				<div class="form-group col-md-6">
-					<label for="name">Nome</label>
-					<input type="text" class="form-control" id="name" name="name" 
-						   autofocus="autofocus" placeholder="Nome Empresa" 
-						   required 
-						   oninvalid="this.setCustomValidity('Por favor, informe o nome da empresa.')"
-						   oninput="setCustomValidity('')"
-						   value="${company.getName()}" />
-				</div>
-				
-				<div class="form-group col-md-6">
-					<label for="role">Cargo</label>
-					<input type="text" class="form-control" id="role" name="role" 
-						   autofocus="autofocus" placeholder="Cargo ocupado" 
-						   required 
-						   oninvalid="this.setCustomValidity('Por favor, informe o cargo.')"
-						   oninput="setCustomValidity('')" 
-						   value="${company.getRole()}"/>
-				</div>				
-			</div>
-			
-			<div class="row">
-				<div class="form-group col-md-4">
-					<label for="start">Data início</label>
-					<input type="date" class="form-control" id="start" name="start" 
-						   autofocus="autofocus" placeholder="Data de início" 
-						   required 
-						   oninvalid="this.setCustomValidity('Por favor, informe a data de início.')"
-						   oninput="setCustomValidity('')"
-						   value="${company.getStart()}" />
-				</div>
-				
-				<div class="form-group col-md-4">
-					<label for="end">Data saída</label>
-					<input type="date" class="form-control" id="end" name="end" 
-						   autofocus="autofocus" placeholder="Data de saída"				    
-						   oninvalid="this.setCustomValidity('Por favor, informe a data de saída')"
-						   oninput="setCustomValidity('')"
-						   value="${company.getEnd()}"/>
-				</div>
-				
-				<div class="form-group col-md-4">
-					<label for="user">Usuário</label>
-					<select id="user" class="form-control selectpicker" name="user" 
-						    required oninvalid="this.setCustomValidity('Por favor, informe o usuário.')"
-						    oninput="setCustomValidity('')">
-					  
-					  <option value="" ${not empty company ? "" : 'selected'} >
-					  	Selecione um usuário
-					  </option>
-					  
-					  <c:forEach var="user" items="${users}">
-					  	<option value="${user.getId()}" 
-					  		${company.getUser().getId() == user.getId() ? 
-					  			'selected' : ''}
-					  	>
-					  		${user.getName()}
-					  	</option>	
-					  </c:forEach>
-					</select>
-				</div>
-			</div>
-			
-			<hr />
-			<div id="actions" class="row pull-right">
-				<div class="col-md-12">
-					
-					<a href="${pageContext.request.contextPath}/companies" 
-					   class="btn btn-default">Cancelar</a>
-					
-					<button type="submit" 
-						    class="btn btn-primary">${not empty company ? 'Atulizar' : 'Cadastrar' } Empresa</button>
-				</div>
-			</div>
-		</form>
-		
-	</div>
-
-</body>
-</html>
+<input type="hidden" name="companyId" value="${company.getId()}">
+<div class="row">
+ <div class="form-group col-md-6"><label for="name">Empresa</label><input class="form-control" type="text" id="name" name="name" maxlength="150" value="<c:out value='${company.getName()}'/>" required autofocus></div>
+ <div class="form-group col-md-6"><label for="role">Cargo</label><input class="form-control" type="text" id="role" name="role" maxlength="150" value="<c:out value='${company.getRole()}'/>" required></div>
+</div>
+<div class="row">
+ <div class="form-group col-md-4"><label for="start">Início</label><input class="form-control" type="date" id="start" name="start" value="${companyStart}" required></div>
+ <div class="form-group col-md-4"><label for="end">Saída (opcional)</label><input class="form-control" type="date" id="end" name="end" value="${companyEnd}"></div>
+ <div class="form-group col-md-4"><label for="user">Responsável</label><select class="form-control" id="user" name="user" required>
+ <option value="">Selecione um usuário</option>
+ <c:forEach var="u" items="${users}"><option value="${u.getId()}" ${not empty company and company.getUser().getId() eq u.getId() ? 'selected' : ''}><c:out value="${u.getName()}"/></option></c:forEach>
+ </select></div>
+</div>
+<div class="form-actions"><button type="submit" class="btn btn-primary">${not empty company ? 'Salvar alterações' : 'Cadastrar empresa'}</button><a class="btn btn-default" href="${pageContext.request.contextPath}/companies">Cancelar</a></div>
+</form></section></main>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script><script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+</body></html>

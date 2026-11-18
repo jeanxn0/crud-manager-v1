@@ -12,10 +12,10 @@
       <label for="email">Seu e-mail</label>
       <input id="email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="voce@exemplo.com" required>
       <label for="password">Crie uma senha</label>
-      <input id="password" name="password" type="password" minlength="8" maxlength="1024" autocomplete="new-password" placeholder="Pelo menos 8 caracteres" required>
+      <div class="register-password-field"><input id="password" name="password" type="password" minlength="8" maxlength="1024" autocomplete="new-password" placeholder="Pelo menos 8 caracteres" required><button type="button" class="register-show" data-password-toggle data-target="password" aria-controls="password" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button></div>
       <button type="submit" class="auth-submit">Criar minha conta <span aria-hidden="true">→</span></button>
     </form>
     <p class="auth-switch">Já tem uma conta? <a href="${pageContext.request.contextPath}/login">Faça login</a></p>
     <p class="auth-disclaimer">Loja demonstrativa para projeto acadêmico.</p>
   </section>
-</main></body></html>
+</main><script src="${pageContext.request.contextPath}/js/password-visibility.js"></script></body></html>

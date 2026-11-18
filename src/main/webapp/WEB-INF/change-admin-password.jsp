@@ -32,6 +32,7 @@
                             <span class="glyphicon glyphicon-lock"></span>
                             <input id="newPassword" name="newPassword" type="password" minlength="12" maxlength="1024"
                                    placeholder="Mínimo de 12 caracteres" autocomplete="new-password" required>
+                            <button type="button" class="login-show" data-password-toggle data-target="newPassword" aria-controls="newPassword" aria-label="Mostrar nova senha" aria-pressed="false">Mostrar</button>
                         </div>
                     </div>
                     <div class="login-field">
@@ -40,6 +41,7 @@
                             <span class="glyphicon glyphicon-lock"></span>
                             <input id="confirmPassword" name="confirmPassword" type="password" minlength="12" maxlength="1024"
                                    placeholder="Repita a nova senha" autocomplete="new-password" required>
+                            <button type="button" class="login-show" data-password-toggle data-target="confirmPassword" aria-controls="confirmPassword" aria-label="Mostrar confirmação" aria-pressed="false">Mostrar</button>
                         </div>
                     </div>
                     <button type="submit" class="login-submit"><span>Salvar e acessar o painel</span><span aria-hidden="true">→</span></button>
@@ -51,4 +53,5 @@
             </div>
         </section>
     </main>
+<script src="${pageContext.request.contextPath}/js/password-visibility.js"></script>
 </body></html>

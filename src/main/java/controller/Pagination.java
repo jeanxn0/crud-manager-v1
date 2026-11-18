@@ -17,6 +17,8 @@ final class Pagination {
         int page = Math.min(total, Math.max(1, requested));
         int start = (page - 1) * PAGE_SIZE;
         request.setAttribute(name, rows.subList(start, Math.min(start + PAGE_SIZE, rows.size())));
+        request.setAttribute("paginationPath", request.getServletPath());
+        request.setAttribute("itemCount", rows.size());
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", total);
     }

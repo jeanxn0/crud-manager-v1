@@ -15,16 +15,25 @@ public final class AdminDAO {
     public AdminAccount findOrInitialize(String username, boolean localRequest, String initialHash)
             throws ModelException {
         try (Connection connection = MySQLConnectionFactory.getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                statement.executeUpdate(
-                    "CREATE TABLE IF NOT EXISTS administradores (" +
-                    "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-                    "username VARCHAR(50) NOT NULL UNIQUE, " +
-                    "senha_hash VARCHAR(255) NOT NULL, " +
-                    "trocar_senha BOOLEAN NOT NULL DEFAULT TRUE" +
-                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+            AdminAccount found;
+            try {
+                found = select(connection, username);
+            } catch (SQLException e) {
+                // Evita exigir CREATE TABLE a cada login. Só cria em primeira utilização.
+                if (e.getErrorCode() != 1146 || !localRequest) {
+                    throw e;
+                }
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(
+                        "CREATE TABLE IF NOT EXISTS administradores (" +
+                        "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                        "username VARCHAR(50) NOT NULL UNIQUE, " +
+                        "senha_hash VARCHAR(255) NOT NULL, " +
+                        "trocar_senha BOOLEAN NOT NULL DEFAULT TRUE" +
+                        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+                }
+                found = select(connection, username);
             }
-            AdminAccount found = select(connection, username);
             if (found != null) return found;
 
             if (!localRequest || !"admin".equals(username) || initialHash == null) return null;
@@ -34,7 +43,7 @@ public final class AdminDAO {
                 statement.setString(1, initialHash);
                 statement.executeUpdate();
             } catch (SQLIntegrityConstraintViolationException ignored) {
-                // Duas requisições podem tentar criar a primeira conta simultaneamente.
+                // Duas requisições simultâneas podem criar a primeira conta.
             }
             return select(connection, username);
         } catch (SQLException e) {
