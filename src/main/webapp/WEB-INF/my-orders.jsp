@@ -18,10 +18,10 @@
     <tbody>
       <c:if test="${empty rows}"><tr><td colspan="6">Você ainda não fez nenhuma compra. Explore o catálogo para começar!</td></tr></c:if>
       <c:forEach var="order" items="${rows}"><tr>
-        <td>#${order.id()}</td><td><c:out value="${options[order.jogo_id()]}"/></td>
-        <td>${order.quantidade()}</td><td><fmt:formatNumber value="${order.valor_total()}" type="currency" currencyCode="BRL"/></td>
-        <td><c:out value="${order.data_venda()}"/></td>
-        <td><span class="status-pill status-${order.status_pagamento()}"><c:out value="${order.status_pagamento()}"/></span></td>
+        <td>#${order.id}</td><td><c:out value="${options[order.jogo_id]}"/></td>
+        <td>${order.quantidade}</td><td><fmt:formatNumber value="${order.valor_total}" type="currency" currencyCode="BRL"/></td>
+        <td><c:out value="${order.data_venda}"/></td>
+        <td><span class="status-pill status-${order.status_pagamento}"><c:out value="${order.status_pagamento}"/></span></td>
       </tr></c:forEach>
     </tbody>
   </table></div>
