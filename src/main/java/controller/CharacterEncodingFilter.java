@@ -8,7 +8,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 
-/** Filtro de UTF-8; nao altera o tipo MIME de HTML, CSS, JavaScript e imagens. */
+ 
 @WebFilter(urlPatterns = "/*")
 public class CharacterEncodingFilter implements Filter {
     @Override
