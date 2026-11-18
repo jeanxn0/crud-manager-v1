@@ -24,14 +24,14 @@ public class DashboardDAO {
     }
 
     private long countWhere(Connection c, String table, String condition) throws SQLException {
-        // table/condition usados somente com constantes internas, nunca com entrada do usuário.
+        
         try (PreparedStatement statement = c.prepareStatement(
                 "SELECT COUNT(*) FROM " + table + " WHERE " + condition);
              ResultSet rs = statement.executeQuery()) {
             rs.next();
             return rs.getLong(1);
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1146) return 0L; // tabela ainda não criada
+            if (e.getErrorCode() == 1146) return 0L; 
             throw e;
         }
     }
