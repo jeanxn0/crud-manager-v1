@@ -1,5 +1,3 @@
--- Execute APOS schema.sql no banco crud_manager.
--- Seguro para executar novamente: so altera a tabela quando necessario.
 USE crud_manager;
 SET @has_col = (
   SELECT COUNT(*) FROM information_schema.COLUMNS
