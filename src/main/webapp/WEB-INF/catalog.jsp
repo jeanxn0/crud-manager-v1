@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html><html lang="pt-BR"><head><title>Catálogo | GameStore</title><%@ include file="../base-head.jsp" %></head>
 <body class="catalog-body">
@@ -31,7 +32,7 @@
     </c:forEach>
   </nav>
   <section id="catalog-results" tabindex="-1" aria-labelledby="catalog-title">
-    <div class="catalog-section-title"><div><p class="eyebrow">EXPLORE A COLEÇÃO</p><h2 id="catalog-title">Todos os jogos</h2></div><span class="catalog-count">${games.size()} jogos encontrados</span></div>
+    <div class="catalog-section-title"><div><p class="eyebrow">EXPLORE A COLEÇÃO</p><h2 id="catalog-title">Todos os jogos</h2></div><span class="catalog-count">${fn:length(games)} jogos encontrados</span></div>
     <form method="get" action="${base}/catalogo#catalog-results" class="catalog-search" role="search">
       <input type="hidden" name="platform" value="${selectedPlatform}">
       <label class="sr-only" for="q">Pesquisar jogo</label>
@@ -50,30 +51,30 @@
       <c:if test="${empty games}"><p class="catalog-empty">Nenhum jogo encontrado. Experimente outra busca.</p></c:if>
       <c:forEach var="game" items="${games}">
         <article class="catalog-card">
-          <c:set var="cover" value="${covers[game.id()]}"/>
+          <c:set var="cover" value="${covers[game.id]}"/>
           <c:choose>
             <c:when test="${not empty cover}">
               <img src="${base}/images/games/${cover}.jpg"
                    onerror="this.onerror=null;this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${cover}/header.jpg';"
-                   alt="Capa de <c:out value='${game.titulo()}'/>" width="460" height="215" loading="lazy">
+                   alt="Capa de <c:out value='${game.titulo}'/>" width="460" height="215" loading="lazy">
             </c:when>
             <c:otherwise><div class="catalog-placeholder" aria-hidden="true">GAME</div></c:otherwise>
           </c:choose>
           <div class="catalog-card-info">
-            <h3><c:out value="${game.titulo()}"/></h3>
+            <h3><c:out value="${game.titulo}"/></h3>
             <ul class="catalog-platforms" aria-label="Plataformas">
-              <c:forEach var="platform" items="${platforms[game.id()]}"><li><c:out value="${platform}"/></li></c:forEach>
+              <c:forEach var="platform" items="${platforms[game.id]}"><li><c:out value="${platform}"/></li></c:forEach>
             </ul>
-            <p class="catalog-description"><c:out value="${game.descricao()}"/></p>
+            <p class="catalog-description"><c:out value="${game.descricao}"/></p>
             <div class="catalog-card-bottom">
-              <strong><c:choose><c:when test="${game.preco() eq 0}">Grátis</c:when><c:otherwise><fmt:formatNumber value="${game.preco()}" type="currency" currencyCode="BRL"/></c:otherwise></c:choose></strong>
+              <strong><c:choose><c:when test="${game.preco eq 0}">Grátis</c:when><c:otherwise><fmt:formatNumber value="${game.preco}" type="currency" currencyCode="BRL"/></c:otherwise></c:choose></strong>
               <c:if test="${not sessionScope.admin}">
                 <form action="${base}/comprar" method="post" class="catalog-buy-form">
                   <input type="hidden" name="csrf" value="${sessionScope.csrf}">
                   <input type="hidden" name="purchaseToken" value="${sessionScope.purchaseToken}">
-                  <input type="hidden" name="jogo_id" value="${game.id()}">
-                  <label class="sr-only" for="quantity-${game.id()}">Quantidade</label>
-                  <select id="quantity-${game.id()}" name="quantidade">
+                  <input type="hidden" name="jogo_id" value="${game.id}">
+                  <label class="sr-only" for="quantity-${game.id}">Quantidade</label>
+                  <select id="quantity-${game.id}" name="quantidade">
                     <option value="1">1 un.</option><option value="2">2 un.</option><option value="3">3 un.</option>
                   </select>
                   <button type="submit" class="buy-button">Comprar</button>
