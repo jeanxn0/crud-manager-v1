@@ -18,22 +18,22 @@
     <tbody>
       <c:if test="${empty companies}"><tr><td colspan="6">Nenhuma empresa encontrada. Cadastre a primeira empresa ou altere os filtros.</td></tr></c:if>
       <c:forEach var="comp" items="${companies}"><tr>
-        <td><strong><c:out value="${comp.getName()}"/></strong></td>
-        <td><c:out value="${comp.getRole()}"/></td>
-        <td><c:out value="${comp.getStart()}"/></td><td><c:out value="${comp.getEnd()}"/></td>
+        <td><strong><c:out value="${comp.name}"/></strong></td>
+        <td><c:out value="${comp.role}"/></td>
+        <td><c:out value="${comp.start}"/></td><td><c:out value="${comp.end}"/></td>
         <td><c:choose>
-          <c:when test="${not empty comp.getAccount()}">
-            <c:choose><c:when test="${not empty comp.getAccount().nome()}">
-              <c:out value="${comp.getAccount().nome()}"/>
-            </c:when><c:otherwise><c:out value="${comp.getAccount().email()}"/></c:otherwise></c:choose>
+          <c:when test="${not empty comp.account}">
+            <c:choose><c:when test="${not empty comp.account.nome}">
+              <c:out value="${comp.account.nome}"/>
+            </c:when><c:otherwise><c:out value="${comp.account.email}"/></c:otherwise></c:choose>
           </c:when>
-          <c:when test="${not empty comp.getUser()}">
-            <c:out value="${comp.getUser().getName()}"/> <small>(antigo)</small>
+          <c:when test="${not empty comp.user}">
+            <c:out value="${comp.user.name}"/> <small>(antigo)</small>
           </c:when>
           <c:otherwise>Não informado</c:otherwise>
         </c:choose></td>
-        <td><a href="${pageContext.request.contextPath}/company/update?companyId=${comp.getId()}" class="btn btn-default btn-sm">Editar</a>
-          <a href="#" class="btn btn-danger btn-sm modal-remove" data-toggle="modal" data-target="#delete-modal" data-item-id="${comp.getId()}" data-item-name="<c:out value='${comp.getName()}'/>">Excluir</a></td>
+        <td><a href="${pageContext.request.contextPath}/company/update?companyId=${comp.id}" class="btn btn-default btn-sm">Editar</a>
+          <a href="#" class="btn btn-danger btn-sm modal-remove" data-toggle="modal" data-target="#delete-modal" data-item-id="${comp.id}" data-item-name="<c:out value='${comp.name}'/>">Excluir</a></td>
       </tr></c:forEach>
     </tbody></table></div>
   <c:set var="paginationPath" value="/companies"/>
