@@ -3,23 +3,36 @@ package controller;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * Centraliza a paginacao de todas as listagens.
+ * A pagina escolhida e limitada ao intervalo valido.
+ */
 final class Pagination {
+
     private static final int PAGE_SIZE = 10;
 
-    static void apply(HttpServletRequest request, String name, List<?> rows) {
-        int total = Math.max(1, (rows.size() + PAGE_SIZE - 1) / PAGE_SIZE);
-        int requested = 1;
+    private Pagination() {
+        // Classe utilitaria, sem instancias.
+    }
+
+    static void apply(HttpServletRequest request, String attributeName, List<?> items) {
+        int totalPages = Math.max(1, (items.size() + PAGE_SIZE - 1) / PAGE_SIZE);
+        int requestedPage = 1;
+
         try {
-            requested = Integer.parseInt(request.getParameter("page"));
+            requestedPage = Integer.parseInt(request.getParameter("page"));
         } catch (NumberFormatException ignored) {
-            // Missing or invalid page numbers use the first page.
+            // Quando o parametro nao existe ou e invalido, abre a pagina 1.
         }
-        int page = Math.min(total, Math.max(1, requested));
-        int start = (page - 1) * PAGE_SIZE;
-        request.setAttribute(name, rows.subList(start, Math.min(start + PAGE_SIZE, rows.size())));
+
+        int currentPage = Math.min(totalPages, Math.max(1, requestedPage));
+        int startIndex = (currentPage - 1) * PAGE_SIZE;
+        int endIndex = Math.min(startIndex + PAGE_SIZE, items.size());
+
+        request.setAttribute(attributeName, items.subList(startIndex, endIndex));
         request.setAttribute("paginationPath", request.getServletPath());
-        request.setAttribute("itemCount", rows.size());
-        request.setAttribute("currentPage", page);
-        request.setAttribute("totalPages", total);
+        request.setAttribute("itemCount", items.size());
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
     }
 }

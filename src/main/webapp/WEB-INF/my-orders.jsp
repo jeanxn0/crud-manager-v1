@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html><html lang="pt-BR"><head><title>Minhas compras | GameStore</title><%@ include file="../base-head.jsp" %></head>
@@ -25,6 +25,7 @@
       </tr></c:forEach>
     </tbody>
   </table></div>
-  <div class="customer-pagination"><%@ include file="pagination.jspf" %></div>
+  <div class="customer-pagination"><c:set var="paginationPath" value="/minhas-compras"/>
+  <%@ include file="pagination.jspf" %></div>
   <p class="orders-note">Os pedidos são demonstrativos. Não há processamento de pagamento real nem entrega de chave digital.</p>
 </main></body></html>

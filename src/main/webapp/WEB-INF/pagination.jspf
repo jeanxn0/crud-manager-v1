@@ -1,13 +1,28 @@
+<%-- Shared, accessible pagination fragment for all CRUD listings. --%>
 <c:if test="${totalPages gt 1}">
-    <nav class="store-pagination" aria-label="Paginação">
+    <nav class="store-pagination" aria-label="Navegacao entre paginas">
         <c:if test="${currentPage gt 1}">
-            <c:url var="prevUrl" value="${paginationPath}"><c:param name="page" value="${currentPage - 1}"/><c:param name="q" value="${param.q}"/></c:url>
-            <a href="<c:out value='${prevUrl}'/>">Anterior</a>
+            <c:url var="prevUrl" value="${paginationPath}">
+                <c:param name="page" value="${currentPage - 1}"/>
+                <c:if test="${not empty param.q}">
+                    <c:param name="q" value="${param.q}"/>
+                </c:if>
+            </c:url>
+            <a href="<c:out value='${prevUrl}'/>" rel="prev">Anterior</a>
         </c:if>
-        <span>Página ${currentPage} de ${totalPages}</span>
+
+        <span class="store-pagination-status" aria-live="polite">
+            P&#225;gina <strong>${currentPage}</strong> de ${totalPages}
+        </span>
+
         <c:if test="${currentPage lt totalPages}">
-            <c:url var="nextUrl" value="${paginationPath}"><c:param name="page" value="${currentPage + 1}"/><c:param name="q" value="${param.q}"/></c:url>
-            <a href="<c:out value='${nextUrl}'/>">Próxima</a>
+            <c:url var="nextUrl" value="${paginationPath}">
+                <c:param name="page" value="${currentPage + 1}"/>
+                <c:if test="${not empty param.q}">
+                    <c:param name="q" value="${param.q}"/>
+                </c:if>
+            </c:url>
+            <a href="<c:out value='${nextUrl}'/>" rel="next">Pr&#243;xima</a>
         </c:if>
     </nav>
 </c:if>

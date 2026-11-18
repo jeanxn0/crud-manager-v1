@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html><html lang="pt-BR">
 <head><title>Usuários | GameStore</title><%@ include file="base-head.jsp" %></head>
@@ -23,6 +23,7 @@
           <a class="btn btn-danger btn-sm modal-remove" href="#" data-toggle="modal" data-target="#delete-modal" data-item-id="${user.getId()}" data-item-name="<c:out value='${user.getName()}'/>">Excluir</a></td>
       </tr></c:forEach>
     </tbody></table></div>
+  <c:set var="paginationPath" value="/users"/>
   <%@ include file="WEB-INF/pagination.jspf" %>
 </main>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script><script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
