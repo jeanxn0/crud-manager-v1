@@ -23,6 +23,8 @@ public class DashboardController extends HttpServlet {
         } catch (ModelException e) {
             getServletContext().log("Falha nos indicadores do painel", e);
             req.setAttribute("dashboardError", "Não foi possível carregar os indicadores. Verifique a conexão e as tabelas do MySQL.");
+            req.setAttribute("stats", new model.DashboardStats(
+                    0, 0, 0, 0, 0, 0, 0, java.math.BigDecimal.ZERO));
         }
         try {
             SaleDAO sales = DAOFactory.createDAO(SaleDAO.class);

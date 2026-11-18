@@ -18,14 +18,15 @@
     <a class="metric-card" href="${pageContext.request.contextPath}/vendas"><span>Pedidos recebidos</span><strong>${stats.orders()}</strong><small>Consultar vendas</small></a>
     <a class="metric-card" href="${pageContext.request.contextPath}/vendas"><span>Aguardando pagamento</span><strong>${stats.pending()}</strong><small>Pedidos pendentes</small></a>
     <div class="metric-card"><span>Receita confirmada</span><strong><fmt:formatNumber value="${stats.revenue()}" type="currency" currencyCode="BRL"/></strong><small>Somente pedidos pagos</small></div>
-    <div class="metric-card"><span>Contas da loja</span><strong>${stats.accounts()}</strong><small>Clientes com login</small></div>
+    <a class="metric-card" href="${pageContext.request.contextPath}/clientes"><span>Clientes cadastrados</span><strong>${stats.accounts()}</strong><small>Contas criadas na loja</small></a>
     <a class="metric-card" href="${pageContext.request.contextPath}/users"><span>Usuários internos</span><strong>${stats.users()}</strong><small>Cadastros do projeto</small></a>
   </div>
   <h2 class="section-heading">Acesso rápido</h2>
   <div class="dashboard-shortcuts">
     <a href="${pageContext.request.contextPath}/jogos"><span class="glyphicon glyphicon-tower"></span><strong>Jogos</strong><small>Adicionar, editar e excluir títulos</small></a>
     <a href="${pageContext.request.contextPath}/vendas"><span class="glyphicon glyphicon-shopping-cart"></span><strong>Vendas</strong><small>Gerenciar pedidos e pagamentos</small></a>
-    <a href="${pageContext.request.contextPath}/users"><span class="glyphicon glyphicon-user"></span><strong>Usuários</strong><small>${stats.users()} cadastrados</small></a>
+    <a href="${pageContext.request.contextPath}/clientes"><span class="glyphicon glyphicon-shopping-cart"></span><strong>Clientes</strong><small>${stats.accounts()} contas na loja</small></a>
+    <a href="${pageContext.request.contextPath}/users"><span class="glyphicon glyphicon-user"></span><strong>Usuários internos</strong><small>${stats.users()} cadastrados</small></a>
     <a href="${pageContext.request.contextPath}/companies"><span class="glyphicon glyphicon-briefcase"></span><strong>Empresas</strong><small>${stats.companies()} cadastradas</small></a>
     <a href="${pageContext.request.contextPath}/posts"><span class="glyphicon glyphicon-comment"></span><strong>Posts</strong><small>${stats.posts()} publicações</small></a>
     <a href="${pageContext.request.contextPath}/catalogo"><span class="glyphicon glyphicon-eye-open"></span><strong>Ver loja</strong><small>Visualizar catálogo</small></a>

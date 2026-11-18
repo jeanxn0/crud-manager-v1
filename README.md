@@ -33,8 +33,12 @@ Use Tomcat com Jakarta Servlet 5+, Java 17+ e as bibliotecas presentes em `WEB-I
 - `/login` / `/register`: autenticação e cadastro.
 - `/catalogo`: catálogo com pesquisa, filtros e formulário de compra.
 - `/minhas-compras`: pedidos da conta do cliente.
-- `/dashboard`: painel administrativo.
+- `/dashboard`: painel administrativo, com total de clientes.
+- `/clientes`: lista somente para administradores com as contas da tabela `contas`, incluindo busca por e-mail e paginação. Não exibe senhas nem hashes.
 - `/jogos`, `/vendas`, `/users`, `/companies`, `/posts`: cadastros exclusivos do administrador.
+
+### Clientes x usuários internos
+A tela de registro da loja (`/register`) salva o cliente em **`contas`**; o CRUD original de usuários salva registros em **`users`**. São entidades distintas. O administrador acessa **Clientes** em `/clientes` para visualizar contas criadas na loja e **Usuários internos** em `/users` para gerenciar os responsáveis pelos jogos, posts e empresas. A nova listagem é apenas de leitura e dispensa qualquer migração adicional do banco, desde que a tabela `contas` já exista.
 
 O botão **Comprar** registra um pedido com status `PENDENTE`, não faz cobrança real e não entrega licença digital. O administrador pode editar o pedido para `PAGO` ou `CANCELADO` na página de Vendas.
 
