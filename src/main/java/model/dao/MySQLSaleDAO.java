@@ -15,8 +15,8 @@ public class MySQLSaleDAO implements SaleDAO {
     }
 
 
-    // Compatibilidade: bases antigas podem ainda não ter recebido migration-compras.sql.
-    // O painel admin deve abrir mesmo antes da migração; compras novas exigem a coluna.
+    
+    
     private Integer readAccountId(ResultSet rs) throws SQLException {
         try {
             return (Integer) rs.getObject("conta_id");
@@ -25,7 +25,7 @@ public class MySQLSaleDAO implements SaleDAO {
                     && e.getMessage().toLowerCase(java.util.Locale.ROOT).contains("column")) {
                 return null;
             }
-            // MySQL Connector/J normalmente informa "Column 'conta_id' not found".
+            
             if (e.getMessage() != null &&
                     (e.getMessage().contains("conta_id") || e.getMessage().contains("Column"))) {
                 return null;
@@ -86,7 +86,7 @@ public class MySQLSaleDAO implements SaleDAO {
         }
     }
 
-    /** Calcula o total exclusivamente pelo preço no banco; não recebe preço do navegador. */
+    
     public boolean purchase(int gameId, int quantity, int accountId) throws ModelException {
         if (gameId <= 0 || quantity < 1 || quantity > 10 || accountId <= 0) {
             throw new IllegalArgumentException("Pedido inválido");
