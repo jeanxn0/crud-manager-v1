@@ -18,13 +18,13 @@
         <section class="store-form">
             <form action="${pageContext.request.contextPath}/post/${action}" method="post">
                 <input type="hidden" name="csrf" value="${sessionScope.csrf}">
-                <input type="hidden" name="postId" value="${post.getId()}">
+                <input type="hidden" name="postId" value="${post.id}">
 
                 <div class="form-group">
                     <label for="content">Conteúdo</label>
                     <textarea class="form-control" id="content" name="content" rows="4"
                               maxlength="5000" placeholder="Escreva sua publicação..."
-                              required><c:out value="${post.getContent()}"/></textarea>
+                              required><c:out value="${post.content}"/></textarea>
                 </div>
 
                 <div class="form-group">
@@ -32,22 +32,22 @@
                     <select class="form-control" id="accountId" name="accountId" required>
                         <option value="">Selecione um usuário</option>
                         <c:forEach var="account" items="${accounts}">
-                            <option value="${account.id()}"
-                                    ${not empty post and post.getAccountId() eq account.id() ? 'selected' : ''}>
+                            <option value="${account.id}"
+                                    ${not empty post and post.accountId eq account.id ? 'selected' : ''}>
                                 <c:choose>
-                                    <c:when test="${not empty account.nome()}">
-                                        <c:out value="${account.nome()}"/> —
+                                    <c:when test="${not empty account.nome}">
+                                        <c:out value="${account.nome}"/> —
                                     </c:when>
                                     <c:otherwise>Conta —</c:otherwise>
                                 </c:choose>
-                                <c:out value="${account.email()}"/>
+                                <c:out value="${account.email}"/>
                             </option>
                         </c:forEach>
                     </select>
                     <c:if test="${empty accounts}">
                         <p class="form-error">Nenhuma conta cadastrada. Crie uma conta pela loja primeiro.</p>
                     </c:if>
-                    <c:if test="${not empty post and empty post.getAccountId()}">
+                    <c:if test="${not empty post and empty post.accountId}">
                         <p class="help-block">Publicação antiga: escolha uma conta da loja para atualizar o responsável.</p>
                     </c:if>
                 </div>
