@@ -1,34 +1,21 @@
 package controller;
-import java.io.IOException;
 
+import java.io.IOException;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 
-@WebFilter(urlPatterns="/*")
+/** Filtro de UTF-8; nao altera o tipo MIME de HTML, CSS, JavaScript e imagens. */
+@WebFilter(urlPatterns = "/*")
 public class CharacterEncodingFilter implements Filter {
-
     @Override
-    public void init(FilterConfig filterConfig)
-            throws ServletException {
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        servletRequest.setCharacterEncoding("UTF-8");
-        servletResponse.setContentType("charset=UTF-8");
-        servletResponse.setCharacterEncoding("UTF-8");
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
-
-    @Override
-    public void destroy() {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        chain.doFilter(request, response);
     }
 }
