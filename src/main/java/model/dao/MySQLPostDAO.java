@@ -12,7 +12,7 @@ import model.ModelException;
 import model.Post;
 import model.User;
 
-/** CRUD de posts com conta_id (novos) e user_id (legados). */
+
 public class MySQLPostDAO implements PostDAO {
 
     private static final String SELECT = "SELECT p.id, p.content, p.post_date, "
