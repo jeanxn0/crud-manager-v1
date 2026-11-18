@@ -8,11 +8,11 @@
 <section class="store-form">
 <form action="${pageContext.request.contextPath}/user/${action}" method="post">
 <input type="hidden" name="csrf" value="${sessionScope.csrf}">
-<input type="hidden" name="userId" value="${user.getId()}">
+<input type="hidden" name="userId" value="${user.id}">
 <div class="row">
- <div class="form-group col-md-5"><label for="name">Nome</label><input class="form-control" type="text" id="name" name="name" maxlength="150" value="<c:out value='${user.getName()}'/>" required autofocus></div>
- <div class="form-group col-md-3"><label for="gender">Sexo</label><select class="form-control" id="gender" name="gender" required><option value="">Selecione</option><option value="F" ${user.getGender() eq 'F' ? 'selected' : ''}>Feminino</option><option value="M" ${user.getGender() eq 'M' ? 'selected' : ''}>Masculino</option></select></div>
- <div class="form-group col-md-4"><label for="mail">E-mail</label><input class="form-control" type="email" id="mail" name="mail" maxlength="254" value="<c:out value='${user.getEmail()}'/>" required></div>
+ <div class="form-group col-md-5"><label for="name">Nome</label><input class="form-control" type="text" id="name" name="name" maxlength="150" value="<c:out value='${user.name}'/>" required autofocus></div>
+ <div class="form-group col-md-3"><label for="gender">Sexo</label><select class="form-control" id="gender" name="gender" required><option value="">Selecione</option><option value="F" ${user.gender eq 'F' ? 'selected' : ''}>Feminino</option><option value="M" ${user.gender eq 'M' ? 'selected' : ''}>Masculino</option></select></div>
+ <div class="form-group col-md-4"><label for="mail">E-mail</label><input class="form-control" type="email" id="mail" name="mail" maxlength="254" value="<c:out value='${user.email}'/>" required></div>
 </div>
 <div class="form-actions"><button type="submit" class="btn btn-primary">${not empty user ? 'Salvar alterações' : 'Cadastrar usuário'}</button><a class="btn btn-default" href="${pageContext.request.contextPath}/usuarios-internos">Cancelar</a></div>
 </form>
