@@ -16,22 +16,22 @@
     <thead><tr><th>Data</th><th>Conteúdo</th><th>Usuário da loja</th><th>Ações</th></tr></thead><tbody>
     <c:if test="${empty posts}"><tr><td colspan="4">Nenhum post encontrado. Utilize "Novo post" para começar.</td></tr></c:if>
     <c:forEach var="post" items="${posts}"><tr>
-      <td><c:out value="${post.postDate}"/></td>
-      <td><c:out value="${post.content}"/></td>
+      <td><c:out value="${post.getPostDate()}"/></td>
+      <td><c:out value="${post.getContent()}"/></td>
       <td><c:choose>
-        <c:when test="${not empty post.account}">
-          <c:choose><c:when test="${not empty post.account.nome}">
-            <c:out value="${post.account.nome}"/>
-          </c:when><c:otherwise><c:out value="${post.account.email}"/></c:otherwise></c:choose>
+        <c:when test="${not empty post.getAccount()}">
+          <c:choose><c:when test="${not empty post.getAccount().nome()}">
+            <c:out value="${post.getAccount().nome()}"/>
+          </c:when><c:otherwise><c:out value="${post.getAccount().email()}"/></c:otherwise></c:choose>
         </c:when>
-        <c:when test="${not empty post.user}">
-          <c:out value="${post.user.name}"/> <small>(antigo)</small>
+        <c:when test="${not empty post.getUser()}">
+          <c:out value="${post.getUser().getName()}"/> <small>(antigo)</small>
         </c:when>
         <c:otherwise>Não informado</c:otherwise>
       </c:choose></td>
-      <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/post/update?postId=${post.id}">Editar</a>
+      <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/post/update?postId=${post.getId()}">Editar</a>
         <a class="btn btn-danger btn-sm modal-remove" href="#" data-toggle="modal" data-target="#delete-modal"
-           data-item-id="${post.id}" data-item-name="<c:out value='${post.content}'/>">Excluir</a></td>
+           data-item-id="${post.getId()}" data-item-name="<c:out value='${post.getContent()}'/>">Excluir</a></td>
     </tr></c:forEach></tbody>
   </table></div>
   <c:set var="paginationPath" value="/posts"/>

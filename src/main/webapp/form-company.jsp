@@ -18,24 +18,24 @@
 
         <section class="store-form">
             <c:if test="${not empty company}">
-                <fmt:formatDate var="companyStart" value="${company.start}" pattern="yyyy-MM-dd"/>
-                <fmt:formatDate var="companyEnd" value="${company.end}" pattern="yyyy-MM-dd"/>
+                <fmt:formatDate var="companyStart" value="${company.getStart()}" pattern="yyyy-MM-dd"/>
+                <fmt:formatDate var="companyEnd" value="${company.getEnd()}" pattern="yyyy-MM-dd"/>
             </c:if>
             <form action="${pageContext.request.contextPath}/company/${action}" method="post">
                 <input type="hidden" name="csrf" value="${sessionScope.csrf}">
-                <input type="hidden" name="companyId" value="${company.id}">
+                <input type="hidden" name="companyId" value="${company.getId()}">
 
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="name">Empresa</label>
                         <input class="form-control" id="name" name="name" type="text"
-                               maxlength="150" value="<c:out value='${company.name}'/>"
+                               maxlength="150" value="<c:out value='${company.getName()}'/>"
                                required autofocus>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="role">Cargo</label>
                         <input class="form-control" id="role" name="role" type="text"
-                               maxlength="150" value="<c:out value='${company.role}'/>" required>
+                               maxlength="150" value="<c:out value='${company.getRole()}'/>" required>
                     </div>
                 </div>
 
@@ -55,22 +55,22 @@
                         <select class="form-control" id="accountId" name="accountId" required>
                             <option value="">Selecione uma conta</option>
                             <c:forEach var="account" items="${accounts}">
-                                <option value="${account.id}"
-                                    ${not empty company and company.accountId eq account.id ? 'selected' : ''}>
+                                <option value="${account.id()}"
+                                    ${not empty company and company.getAccountId() eq account.id() ? 'selected' : ''}>
                                     <c:choose>
-                                        <c:when test="${not empty account.nome}">
-                                            <c:out value="${account.nome}"/> —
+                                        <c:when test="${not empty account.nome()}">
+                                            <c:out value="${account.nome()}"/> —
                                         </c:when>
                                         <c:otherwise>Conta —</c:otherwise>
                                     </c:choose>
-                                    <c:out value="${account.email}"/>
+                                    <c:out value="${account.email()}"/>
                                 </option>
                             </c:forEach>
                         </select>
                         <c:if test="${empty accounts}">
                             <p class="form-error">Cadastre um usuário na loja antes de adicionar empresas.</p>
                         </c:if>
-                        <c:if test="${not empty company and empty company.accountId}">
+                        <c:if test="${not empty company and empty company.getAccountId()}">
                             <p class="help-block">Registro antigo: selecione uma conta da loja para atualizar.</p>
                         </c:if>
                     </div>

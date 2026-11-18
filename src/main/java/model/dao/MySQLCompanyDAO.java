@@ -13,7 +13,7 @@ import model.CustomerAccount;
 import model.ModelException;
 import model.User;
 
-
+/** CRUD de empresas ligado aos cadastros reais de contas. */
 public class MySQLCompanyDAO implements CompanyDAO {
 
     private static final String SELECT = "SELECT c.id, c.name, c.role, c.start, c.end, "

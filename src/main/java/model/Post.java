@@ -3,7 +3,7 @@ package model;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/** Publicacao associada a uma conta da loja ou a um usuario interno antigo. */
 public class Post {
     private int id;
     private String content;
@@ -28,7 +28,7 @@ public class Post {
     public Date getPostDate() { return postDate; }
     public void setPostDate(Date postDate) { this.postDate = postDate; }
 
-    
+    /** Mantido para apresentar o autor de publicacoes antigas. */
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 

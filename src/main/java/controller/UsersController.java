@@ -92,7 +92,7 @@ public class UsersController extends HttpServlet {
 			
 			return user;
 		} catch (ModelException e) {
-			
+			// log no servidor
 			e.printStackTrace();
 			ControllerUtil.errorMessage(req, e.getMessage());
 		}
@@ -107,7 +107,7 @@ public class UsersController extends HttpServlet {
 		try {
 			users = dao.listAll();
 		} catch (ModelException e) {
-			
+			// Log no servidor
 			e.printStackTrace();
 		}
 		
@@ -145,7 +145,7 @@ public class UsersController extends HttpServlet {
 			}
 				
 		} catch (ModelException e) {
-			
+			// log no servidor
 			e.printStackTrace();
 			ControllerUtil.errorMessage(req, e.getMessage());
 		}
@@ -172,7 +172,7 @@ public class UsersController extends HttpServlet {
 			}
 				
 		} catch (ModelException e) {
-			
+			// log no servidor
 			e.printStackTrace();
 			ControllerUtil.errorMessage(req, e.getMessage());
 		}
@@ -198,7 +198,7 @@ public class UsersController extends HttpServlet {
 				ControllerUtil.errorMessage(req, "Usuário '" + user.getName() + "' não pode ser deletado. Há dados relacionados ao usuário.");
 			}
 		} catch (ModelException e) {
-			
+			// log no servidor
 			if (e.getCause() instanceof SQLIntegrityConstraintViolationException) {
 				ControllerUtil.errorMessage(req, e.getMessage());
 			}

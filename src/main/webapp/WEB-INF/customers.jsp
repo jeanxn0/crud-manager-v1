@@ -48,14 +48,14 @@
                     </c:if>
                     <c:forEach var="customer" items="${customers}">
                         <tr>
-                            <td>#<c:out value="${customer.id}"/></td>
-                            <td><c:choose><c:when test="${not empty customer.nome}">
-                                <strong><c:out value="${customer.nome}"/></strong>
+                            <td>#<c:out value="${customer.id()}"/></td>
+                            <td><c:choose><c:when test="${not empty customer.nome()}">
+                                <strong><c:out value="${customer.nome()}"/></strong>
                             </c:when><c:otherwise>Não informado (conta antiga)</c:otherwise></c:choose></td>
-                            <td><c:choose><c:when test="${not empty customer.sexo}">
-                                <c:out value="${customer.sexo}"/>
+                            <td><c:choose><c:when test="${not empty customer.sexo()}">
+                                <c:out value="${customer.sexo()}"/>
                             </c:when><c:otherwise>Não informado</c:otherwise></c:choose></td>
-                            <td><c:out value="${customer.email}"/></td>
+                            <td><c:out value="${customer.email()}"/></td>
                         </tr>
                     </c:forEach>
                 </tbody>

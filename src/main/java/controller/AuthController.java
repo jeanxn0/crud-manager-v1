@@ -68,7 +68,7 @@ public class AuthController extends HttpServlet {
                         dao.findOrInitialize(login, local,
                             local && "admin".equals(password) ? hashPassword("admin") : null);
                 if (admin != null && matches(password, admin.passwordHash())) {
-                     
+                    // As credenciais de demonstração só funcionam a partir do localhost.
                     if (admin.mustChangePassword() && !local) {
                         invalidLogin(request, response,
                                 "Primeiro acesso do admin: abra a loja pelo localhost neste computador.", 403);
@@ -131,7 +131,7 @@ public class AuthController extends HttpServlet {
                 || "0:0:0:0:0:0:0:1".equals(address);
     }
 
-     
+    /** Cadastra o perfil e a senha criptografada na mesma conta da loja. */
     private void register(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String rawName = request.getParameter("nome");

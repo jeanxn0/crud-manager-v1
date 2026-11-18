@@ -1,3 +1,6 @@
+-- Execute apos schema.sql e catalogo-demo.sql.
+-- Acrescenta 28 jogos. Precos ilustrativos; nao representa loja oficial.
+-- Reexecutar este arquivo nao duplica registros.
 USE crud_manager;
 START TRANSACTION;
 INSERT INTO users (nome, sexo, email)

@@ -16,10 +16,10 @@ import model.ModelException;
 import model.dao.DAOFactory;
 import model.dao.GameDAO;
 
- 
-
-
-
+/**
+ * Controlador do CRUD de jogos: lista, cria, edita e exclui registros.
+ * As respostas HTML sao construidas pelas JSPs em WEB-INF.
+ */
 @WebServlet("/jogos")
 public class GamesController extends HttpServlet {
 

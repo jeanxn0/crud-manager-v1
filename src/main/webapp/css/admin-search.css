@@ -6,7 +6,7 @@
 .store-page .store-pagination a:hover{background:#e5eeff}
 @media(max-width:600px){.admin-search .form-control{flex-basis:100%;max-width:none}}
 
-
+/* Paginação uniforme e responsiva em todos os CRUDs. */
 .store-pagination,
 .store-page .store-pagination,
 .customer-pagination .store-pagination {
@@ -75,7 +75,7 @@
     }
 }
 
-
+/* Administracao: secao exclusiva de clientes da loja. */
 .admin-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
 .customer-role{display:inline-flex;align-items:center;color:#1b6550;background:#e2f8ee;border-radius:16px;padding:6px 10px;font-size:12px;font-weight:700;white-space:nowrap}
 .customers-note{margin-top:23px;color:#64748b;font-size:13px;line-height:1.6}

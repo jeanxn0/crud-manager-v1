@@ -1,3 +1,6 @@
+-- Execute uma vez (ou repita sem perder dados) no MySQL Workbench.
+-- Preserva registros de contas, posts e empresas que ja existem.
+-- A aplicacao tambem tenta aplicar esta migracao automaticamente se tiver permissao.
 USE crud_manager;
 
 DROP PROCEDURE IF EXISTS migrar_perfis_e_vinculos;

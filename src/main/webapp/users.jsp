@@ -18,9 +18,9 @@
     <tbody>
       <c:if test="${empty users}"><tr><td colspan="4">Nenhum usuário encontrado. Cadastre alguém ou ajuste a pesquisa.</td></tr></c:if>
       <c:forEach var="user" items="${users}"><tr>
-        <td><strong><c:out value="${user.name}"/></strong></td><td><c:out value="${user.gender}"/></td><td><c:out value="${user.email}"/></td>
-        <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/user/update?userId=${user.id}">Editar</a>
-          <a class="btn btn-danger btn-sm modal-remove" href="#" data-toggle="modal" data-target="#delete-modal" data-item-id="${user.id}" data-item-name="<c:out value='${user.name}'/>">Excluir</a></td>
+        <td><strong><c:out value="${user.getName()}"/></strong></td><td><c:out value="${user.getGender()}"/></td><td><c:out value="${user.getEmail()}"/></td>
+        <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/user/update?userId=${user.getId()}">Editar</a>
+          <a class="btn btn-danger btn-sm modal-remove" href="#" data-toggle="modal" data-target="#delete-modal" data-item-id="${user.getId()}" data-item-name="<c:out value='${user.getName()}'/>">Excluir</a></td>
       </tr></c:forEach>
     </tbody></table></div>
   <c:set var="paginationPath" value="/usuarios-internos"/>

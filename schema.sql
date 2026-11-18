@@ -1,6 +1,8 @@
+-- Execute no MySQL Workbench. As tabelas existentes são preservadas.
 CREATE DATABASE IF NOT EXISTS crud_manager CHARACTER SET utf8mb4;
 USE crud_manager;
 
+-- Ordem das colunas conforme os INSERTs do CRUD Manager.
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
@@ -78,6 +80,8 @@ CREATE TABLE IF NOT EXISTS plataformas_jogos (
     FOREIGN KEY (jogo_id) REFERENCES jogos(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+-- Administradores: criados automaticamente pelo login local quando faltarem.
+-- Também é possível preparar a tabela executando schema.sql.
 CREATE TABLE IF NOT EXISTS administradores (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,

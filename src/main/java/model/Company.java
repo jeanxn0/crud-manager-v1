@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-
+/** Cadastro de empresa com responsavel da loja ou legado interno. */
 public class Company {
     private int id;
     private String name;

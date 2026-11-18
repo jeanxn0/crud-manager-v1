@@ -3,16 +3,16 @@ package controller;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
- 
-
-
-
+/**
+ * Centraliza a paginacao de todas as listagens.
+ * A pagina escolhida e limitada ao intervalo valido.
+ */
 final class Pagination {
 
     private static final int PAGE_SIZE = 10;
 
     private Pagination() {
-         
+        // Classe utilitaria, sem instancias.
     }
 
     static void apply(HttpServletRequest request, String attributeName, List<?> items) {
@@ -22,7 +22,7 @@ final class Pagination {
         try {
             requestedPage = Integer.parseInt(request.getParameter("page"));
         } catch (NumberFormatException ignored) {
-             
+            // Quando o parametro nao existe ou e invalido, abre a pagina 1.
         }
 
         int currentPage = Math.min(totalPages, Math.max(1, requestedPage));

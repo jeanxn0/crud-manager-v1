@@ -1,4 +1,4 @@
-
+/* GameStore 2026: responsivo, com contraste e uso em mobile */
 :root{--brand:#7bf1b5;--ink:#0b1220;--card:#152138;--line:#33415b;--muted:#a9b9d1}
 body{font-family:'Fira Sans','Open Sans',Arial,sans-serif}
 body:not(.catalog-body){background:#f3f5fb;color:#172235}
@@ -107,7 +107,7 @@ body:not(.catalog-body){background:#f3f5fb;color:#172235}
 .register-password-field{position:relative;width:100%}.register-password-field input{width:100%;padding-right:88px}.register-show{position:absolute;right:10px;top:7px;background:#253851;border:0;border-radius:7px;padding:8px 10px;color:#b7f6d5;font-weight:700;font-size:12px;cursor:pointer}
 .store-page .table-responsive{width:100%;max-width:100%;overflow-x:auto}.store-page .table{min-width:630px}.store-page .store-form{margin:16px auto}.store-page .form-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.admin-nav-spacer{min-height:77px}.store-page .form-error{background:#fff0f2;color:#8a263f;border:1px solid #f0c5d2;border-radius:8px;padding:12px}
 
-
+/* Campos do novo perfil na pagina de registro. */
 .auth-form select{
     width:100%;height:48px;border-radius:10px;border:1px solid #52617a;
     background:#0e1829;color:#fff;padding:10px 14px;margin-bottom:8px;

@@ -1,3 +1,6 @@
+-- Dados FICTICIOS opcionais para demonstrar telas administrativas.
+-- Execute somente se quiser preencher Usuarios, Empresas e Posts para avaliacao.
+-- Reexecutar nao deve duplicar os registros.
 USE crud_manager;
 START TRANSACTION;
 

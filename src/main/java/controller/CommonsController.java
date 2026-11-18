@@ -17,7 +17,7 @@ public class CommonsController {
 		try {
 			listUsers = dao.listAll();
 		} catch (ModelException e) {
-			 
+			// Log no servidor
 			e.printStackTrace();
 		}
 		

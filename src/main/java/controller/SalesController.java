@@ -18,10 +18,10 @@ import model.Sale;
 import model.dao.DAOFactory;
 import model.dao.SaleDAO;
 
-
-
-
-
+/**
+ * Controlador administrativo do CRUD de vendas.
+ * Diferente da compra do cliente, permite inserir e editar vendas manualmente.
+ */
 @WebServlet("/vendas")
 public class SalesController extends HttpServlet {
 
