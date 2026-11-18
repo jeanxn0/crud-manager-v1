@@ -4,11 +4,11 @@ import java.sql.*;
 import java.security.GeneralSecurityException;
 import model.ModelException;
 
-/**
- * Administradores são armazenados separadamente das contas de clientes.
- * A primeira conta de desenvolvimento é criada automaticamente no banco
- * SOMENTE quando alguém tenta entrar com "admin" a partir do localhost.
- */
+
+
+
+
+
 public final class AdminDAO {
     public record AdminAccount(int id, String username, String passwordHash, boolean mustChangePassword) {}
 
@@ -19,7 +19,7 @@ public final class AdminDAO {
             try {
                 found = select(connection, username);
             } catch (SQLException e) {
-                // Evita exigir CREATE TABLE a cada login. Só cria em primeira utilização.
+                
                 if (e.getErrorCode() != 1146 || !localRequest) {
                     throw e;
                 }
@@ -43,7 +43,7 @@ public final class AdminDAO {
                 statement.setString(1, initialHash);
                 statement.executeUpdate();
             } catch (SQLIntegrityConstraintViolationException ignored) {
-                // Duas requisições simultâneas podem criar a primeira conta.
+                
             }
             return select(connection, username);
         } catch (SQLException e) {
