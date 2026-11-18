@@ -1,4 +1,3 @@
--- Execute após schema.sql. Valores ilustrativos em reais.
 USE crud_manager;
 START TRANSACTION;
 INSERT INTO users (nome, sexo, email)
