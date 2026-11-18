@@ -60,18 +60,18 @@
                     </c:if>
                     <c:forEach var="row" items="${rows}">
                         <tr>
-                            <td><strong><c:out value="${row.titulo()}"/></strong></td>
-                            <td class="description-cell"><c:out value="${row.descricao()}"/></td>
-                            <td><c:out value="${row.data_lancamento()}"/></td>
-                            <td>R$ <c:out value="${row.preco()}"/></td>
-                            <td><c:out value="${options[row.usuario_id()]}"/></td>
+                            <td><strong><c:out value="${row.titulo}"/></strong></td>
+                            <td class="description-cell"><c:out value="${row.descricao}"/></td>
+                            <td><c:out value="${row.data_lancamento}"/></td>
+                            <td>R$ <c:out value="${row.preco}"/></td>
+                            <td><c:out value="${options[row.usuario_id]}"/></td>
                             <td>
                                 <a class="btn btn-default btn-sm"
-                                   href="${pageContext.request.contextPath}/jogos?action=edit&amp;id=${row.id()}">
+                                   href="${pageContext.request.contextPath}/jogos?action=edit&amp;id=${row.id}">
                                     Editar
                                 </a>
                                 <a class="btn btn-danger btn-sm"
-                                   href="${pageContext.request.contextPath}/jogos?action=delete&amp;id=${row.id()}">
+                                   href="${pageContext.request.contextPath}/jogos?action=delete&amp;id=${row.id}">
                                     Excluir
                                 </a>
                             </td>
