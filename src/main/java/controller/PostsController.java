@@ -14,9 +14,9 @@ import model.dao.CustomerDAO;
 import model.dao.DAOFactory;
 import model.dao.PostDAO;
 
-/**
- * CRUD de publicacoes: os novos posts escolhem um usuario cadastrado na loja.
- */
+
+
+
 @WebServlet({"/posts", "/post/form", "/post/delete", "/post/insert", "/post/update"})
 public class PostsController extends HttpServlet {
 
