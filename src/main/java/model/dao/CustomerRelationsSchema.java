@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Migra posts e companies para suportar vinculo com contas da loja.
- * Mantem user_id para registros antigos, sem apagar dados.
- */
+
+
+
+
 public final class CustomerRelationsSchema {
     private CustomerRelationsSchema() {
     }
@@ -74,7 +74,7 @@ public final class CustomerRelationsSchema {
             statement.executeUpdate("ALTER TABLE " + table + " ADD CONSTRAINT " + constraint
                     + " FOREIGN KEY (conta_id) REFERENCES contas(id)");
         } catch (SQLException e) {
-            // Requisicoes concorrentes podem ter criado a chave estrangeira.
+            
             if (e.getErrorCode() != 1826 && e.getErrorCode() != 1061) throw e;
         }
     }
