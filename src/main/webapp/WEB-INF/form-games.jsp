@@ -9,21 +9,21 @@
 <header class="store-intro"><p class="store-intro-label">ADMINISTRAÇÃO</p><h1>${param.action eq 'new' ? 'Novo jogo' : param.action eq 'delete' ? 'Excluir jogo' : 'Editar jogo'}</h1><p>Cadastre os dados do título para exibição no catálogo.</p></header>
 <form class="store-form" action="${pageContext.request.contextPath}/jogos" method="post">
 <input type="hidden" name="csrf" value="${sessionScope.csrf}">
-<input type="hidden" name="id" value="${empty item ? 0 : item.id()}">
+<input type="hidden" name="id" value="${empty item ? 0 : item.id}">
 <c:choose>
 <c:when test="${param.action eq 'delete'}">
-    <p>Confirma a exclusão do registro #${item.id()}?</p>
+    <p>Confirma a exclusão do registro #${item.id}?</p>
     <button class="btn btn-danger" name="action" value="delete">Confirmar exclusão</button>
 </c:when>
 <c:otherwise>
-    <div class="form-group"><label for="titulo">Título</label><input class="form-control" id="titulo" name="titulo" type="text" value='<c:out value="${item.titulo()}"/>' maxlength="150" required></div>
-    <div class="form-group"><label for="descricao">Descrição</label><textarea class="form-control" id="descricao" name="descricao" required><c:out value="${item.descricao()}"/></textarea></div>
-    <div class="form-group"><label for="data_lancamento">Lançamento</label><input class="form-control" id="data_lancamento" name="data_lancamento" type="date" value='<c:out value="${item.data_lancamento()}"/>' required></div>
-    <div class="form-group"><label for="preco">Preço</label><input class="form-control" id="preco" name="preco" type="number" value='<c:out value="${item.preco()}"/>' min="0" step="0.01" required></div>
+    <div class="form-group"><label for="titulo">Título</label><input class="form-control" id="titulo" name="titulo" type="text" value='<c:out value="${item.titulo}"/>' maxlength="150" required></div>
+    <div class="form-group"><label for="descricao">Descrição</label><textarea class="form-control" id="descricao" name="descricao" required><c:out value="${item.descricao}"/></textarea></div>
+    <div class="form-group"><label for="data_lancamento">Lançamento</label><input class="form-control" id="data_lancamento" name="data_lancamento" type="date" value='<c:out value="${item.data_lancamento}"/>' required></div>
+    <div class="form-group"><label for="preco">Preço</label><input class="form-control" id="preco" name="preco" type="number" value='<c:out value="${item.preco}"/>' min="0" step="0.01" required></div>
     <div class="form-group"><label for="usuario_id">Responsável</label><select class="form-control" id="usuario_id" name="usuario_id" required>
       <option value="">Selecione um usuário</option>
       <c:forEach var="option" items="${options}">
-        <option value="${option.key}" ${not empty item and item.usuario_id() eq option.key ? 'selected' : ''}><c:out value="${option.value}"/></option>
+        <option value="${option.key}" ${not empty item and item.usuario_id eq option.key ? 'selected' : ''}><c:out value="${option.value}"/></option>
       </c:forEach>
     </select><c:if test="${empty options}"><p class="form-error">Cadastre um usuário antes de adicionar jogos. <a href="${pageContext.request.contextPath}/user/form">Cadastrar usuário</a></p></c:if></div>
     <button class="btn btn-primary" name="action" value="save">Salvar jogo</button>
