@@ -15,7 +15,7 @@ import model.dao.CompanyDAO;
 import model.dao.CustomerDAO;
 import model.dao.DAOFactory;
 
-/** Empresas com responsaveis selecionados entre as contas cadastradas na loja. */
+ 
 @WebServlet({"/companies", "/company/form", "/company/insert", "/company/delete", "/company/update"})
 public class CompaniesController extends HttpServlet {
 
