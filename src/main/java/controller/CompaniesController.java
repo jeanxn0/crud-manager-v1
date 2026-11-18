@@ -1,219 +1,133 @@
 package controller;
 
-import java.io.IOException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.List;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Locale;
 import model.Company;
 import model.ModelException;
-import model.User;
 import model.dao.CompanyDAO;
+import model.dao.CustomerDAO;
 import model.dao.DAOFactory;
 
-@WebServlet(urlPatterns = {"/companies", "/company/form", 
-		"/company/insert", "/company/delete", "/company/update"})
-public class CompaniesController extends HttpServlet{
-	
-	private static final long serialVersionUID = 1L;
+/** Empresas com responsaveis selecionados entre as contas cadastradas na loja. */
+@WebServlet({"/companies", "/company/form", "/company/insert", "/company/delete", "/company/update"})
+public class CompaniesController extends HttpServlet {
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
-		
-		String action = req.getServletPath();
-		
-		switch (action) {
-		case "/company/form": {
-			CommonsController.listUsers(req);
-			req.setAttribute("action", "insert");
-			ControllerUtil.forward(req, resp, "/form-company.jsp");			
-			break;
-		}
-		case "/company/update": {
-			String idStr = req.getParameter("companyId");
-			int idCompany = Integer.parseInt(idStr); 
-			
-			CompanyDAO dao = DAOFactory.createDAO(CompanyDAO.class);
-			
-			Company company = null;
-			try {
-				company = dao.findById(idCompany);
-			} catch (ModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			CommonsController.listUsers(req);
-			req.setAttribute("action", "update");
-			req.setAttribute("company", company);
-			ControllerUtil.forward(req, resp, "/form-company.jsp");
-			break;
-		}
-		default:
-			listCompanies(req);
-			
-			ControllerUtil.transferSessionMessagesToRequest(req);
-		
-			ControllerUtil.forward(req, resp, "/companies.jsp");
-		}
-	}
-	
-	private void listCompanies(HttpServletRequest req) {
-		CompanyDAO dao = DAOFactory.createDAO(CompanyDAO.class);
-		
-		List<Company> companies = null;
-		try {
-			companies = dao.listAll();
-		} catch (ModelException e) {
-			// Log no servidor
-			e.printStackTrace();
-		}
-		
-		if (companies != null) {
-            String q = req.getParameter("q");
-            if (q != null && !q.isBlank()) {
-                String search = q.strip().toLowerCase(java.util.Locale.ROOT);
-                companies = companies.stream().filter(c ->
-                    (c.getName() != null && c.getName().toLowerCase(java.util.Locale.ROOT).contains(search))
-                    || (c.getRole() != null && c.getRole().toLowerCase(java.util.Locale.ROOT).contains(search))
-                ).toList();
+    private static final long serialVersionUID = 1L;
+    private final CompanyDAO dao = DAOFactory.createDAO(CompanyDAO.class);
+    private final CustomerDAO customers = new CustomerDAO();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        String path = req.getServletPath();
+        try {
+            if ("/company/form".equals(path) || "/company/update".equals(path)) {
+                if ("/company/update".equals(path)) {
+                    int id = Integer.parseInt(req.getParameter("companyId"));
+                    Company company = dao.findById(id);
+                    if (company == null) {
+                        resp.sendError(404, "Empresa não encontrada.");
+                        return;
+                    }
+                    req.setAttribute("company", company);
+                }
+                req.setAttribute("accounts", customers.list());
+                req.setAttribute("action", "/company/form".equals(path) ? "insert" : "update");
+                ControllerUtil.forward(req, resp, "/form-company.jsp");
+                return;
+            }
+
+            var companies = dao.listAll();
+            String query = req.getParameter("q");
+            if (query != null && !query.isBlank()) {
+                String term = query.strip().toLowerCase(Locale.ROOT);
+                companies = companies.stream()
+                        .filter(item -> contains(item.getName(), term)
+                                || contains(item.getRole(), term))
+                        .toList();
             }
             Pagination.apply(req, "companies", companies);
+            ControllerUtil.transferSessionMessagesToRequest(req);
+            ControllerUtil.forward(req, resp, "/companies.jsp");
+        } catch (ModelException e) {
+            getServletContext().log("Falha no CRUD de empresas", e);
+            throw new ServletException(
+                    "Não foi possível acessar empresas. Verifique a migração do banco.", e);
+        } catch (IllegalArgumentException e) {
+            resp.sendError(400, "Empresa inválida.");
         }
-	}
+    }
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
-		
-		String action = req.getServletPath();
-		
-		switch (action) {
-		case "/company/insert": {
-			insertCompany(req, resp);			
-			break;
-		}
-		case "/company/delete" :{
-			
-			deleteCompany(req, resp);
-			
-			break;
-		}
-		
-		case "/company/update" :{
-			updateCompany(req, resp);
-			break;
-		}
-		
-		default:
-			System.out.println("URL inválida " + action);
-		}
-		
-		ControllerUtil.redirect(resp, req.getContextPath() + "/companies");
-	}
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+        String path = req.getServletPath();
+        try {
+            switch (path) {
+                case "/company/insert":
+                case "/company/update": {
+                    String name = req.getParameter("name");
+                    String role = req.getParameter("role");
+                    String rawEnd = req.getParameter("end");
+                    int accountId = Integer.parseInt(req.getParameter("accountId"));
+                    LocalDate start = LocalDate.parse(req.getParameter("start"));
+                    LocalDate end = rawEnd == null || rawEnd.isBlank()
+                            ? null : LocalDate.parse(rawEnd);
+                    if (name == null || name.isBlank() || name.length() > 150
+                            || role == null || role.isBlank() || role.length() > 150
+                            || accountId <= 0 || (end != null && end.isBefore(start))) {
+                        throw new IllegalArgumentException("Dados inválidos.");
+                    }
 
-	private void updateCompany(HttpServletRequest req, HttpServletResponse resp) {
-		String companyIdStr = req.getParameter("companyId");
-		String companyName = req.getParameter("name");
-		String role = req.getParameter("role");
-		String start = req.getParameter("start");
-		String end = req.getParameter("end");
-		Integer userId = Integer.parseInt(req.getParameter("user"));
-		
-		Company company = new Company(Integer.parseInt(companyIdStr));
-		company.setName(companyName);
-		company.setRole(role);
-		company.setStart(ControllerUtil.formatDate(start));
-		company.setEnd(ControllerUtil.formatDate(end));
-		company.setUser(new User(userId));
-		
-		
-		CompanyDAO dao = DAOFactory.createDAO(CompanyDAO.class);
-		
-		try {
-			if (dao.update(company)) {
-				ControllerUtil.sucessMessage(req, "Empresa '" + 
-						company.getName() + "' atualizada com sucesso.");
-			}
-			else {
-				ControllerUtil.errorMessage(req, "Empresa '" + 
-						company.getName() + "' não pode ser atualizada.");
-			}				
-		} catch (ModelException e) {
-			// log no servidor
-			e.printStackTrace();
-			ControllerUtil.errorMessage(req, e.getMessage());
-		}		
-	}
+                    Company company = "/company/update".equals(path)
+                            ? dao.findById(Integer.parseInt(req.getParameter("companyId")))
+                            : new Company();
+                    if (company == null) {
+                        ControllerUtil.errorMessage(req, "Empresa não encontrada.");
+                        break;
+                    }
+                    company.setName(name.strip());
+                    company.setRole(role.strip());
+                    company.setStart(Date.valueOf(start));
+                    company.setEnd(end == null ? null : Date.valueOf(end));
+                    company.setAccountId(accountId);
 
-	private void deleteCompany(HttpServletRequest req, HttpServletResponse resp) {
-		String companyIdParameter = req.getParameter("id");
-		
-		int companyId = Integer.parseInt(companyIdParameter);
-		
-		CompanyDAO dao = DAOFactory.createDAO(CompanyDAO.class);
-		
-		try {
-			Company company = dao.findById(companyId);
-			
-			if (company == null)
-				throw new ModelException("Empresa não encontrada para deleção.");
-			
-			if (dao.delete(company)) {
-				ControllerUtil.sucessMessage(req, "Empresa '" + 
-						company.getName() + "' deletada com sucesso.");
-			}
-			else {
-				ControllerUtil.errorMessage(req, "Empresa '" + 
-						company.getName() + "' não pode ser deletado. "
-								+ "Há dados relacionados à empresa.");
-			}
-		} catch (ModelException e) {
-			// log no servidor
-			if (e.getCause() instanceof 
-					SQLIntegrityConstraintViolationException) {
-				ControllerUtil.errorMessage(req, e.getMessage());
-			}
-			e.printStackTrace();
-			ControllerUtil.errorMessage(req, e.getMessage());
-		}
-	}
+                    boolean saved = "/company/update".equals(path)
+                            ? dao.update(company) : dao.save(company);
+                    if (saved) ControllerUtil.sucessMessage(req, "Empresa salva com sucesso.");
+                    else ControllerUtil.errorMessage(req, "Não foi possível salvar a empresa.");
+                    break;
+                }
+                case "/company/delete": {
+                    int id = Integer.parseInt(req.getParameter("id"));
+                    Company company = dao.findById(id);
+                    if (company == null) ControllerUtil.errorMessage(req, "Empresa não encontrada.");
+                    else if (dao.delete(company)) {
+                        ControllerUtil.sucessMessage(req, "Empresa excluída.");
+                    } else ControllerUtil.errorMessage(req, "Não foi possível excluir a empresa.");
+                    break;
+                }
+                default:
+                    resp.sendError(405);
+                    return;
+            }
+        } catch (ModelException e) {
+            getServletContext().log("Falha ao gravar empresa", e);
+            ControllerUtil.errorMessage(req, "Erro ao salvar. Verifique o usuário e o MySQL.");
+        } catch (RuntimeException e) {
+            ControllerUtil.errorMessage(req, "Revise as datas e escolha um usuário cadastrado.");
+        }
+        ControllerUtil.redirect(resp, req.getContextPath() + "/companies");
+    }
 
-	private void insertCompany(HttpServletRequest req, HttpServletResponse resp) {
-		String companyName = req.getParameter("name");
-		String role = req.getParameter("role");
-		String start = req.getParameter("start");
-		String end = req.getParameter("end");
-		Integer userId = Integer.parseInt(req.getParameter("user"));
-		
-		Company comp = new Company();
-		comp.setName(companyName);
-		comp.setRole(role);
-		comp.setStart(ControllerUtil.formatDate(start));
-		comp.setEnd(ControllerUtil.formatDate(end));
-		comp.setUser(new User(userId));
-		
-		CompanyDAO dao = DAOFactory.createDAO(CompanyDAO.class);
-	
-		try {
-			if (dao.save(comp)) {
-				ControllerUtil.sucessMessage(req, "Empresa '" + comp.getName() 
-				+ "' salva com sucesso.");
-			}
-			else {
-				ControllerUtil.errorMessage(req, "Empresa '" + comp.getName()
-				+ "' não pode ser salva.");
-			}
-		} catch (ModelException e) {
-			// log no servidor
-			e.printStackTrace();
-			ControllerUtil.errorMessage(req, e.getMessage());
-		}
-	}
-	
+    private static boolean contains(String value, String term) {
+        return value != null && value.toLowerCase(Locale.ROOT).contains(term);
+    }
 }

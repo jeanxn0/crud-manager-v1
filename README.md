@@ -15,6 +15,7 @@ No MySQL, execute **nesta ordem**:
 2. `catalogo-demo.sql` — povoa 42 jogos com capas locais.
 3. `migration-compras.sql` — vincula pedidos de clientes à tabela `contas`.
 4. `mais-jogos.sql` — insere 28 jogos adicionais, totalizando até 70 títulos sem duplicar os existentes.
+5. `migration-perfil-e-vinculos.sql` — atualiza `contas` (nome e sexo), `posts` e `companies` para usar clientes cadastrados como responsáveis; preserva registros existentes.
 
 Se as tabelas já existem, os scripts foram escritos para preservar os registros; `migration-compras.sql` é idempotente. Não execute `schema.sql` nem scripts de dados em um ambiente que não tenha backup.
 
@@ -34,11 +35,16 @@ Use Tomcat com Jakarta Servlet 5+, Java 17+ e as bibliotecas presentes em `WEB-I
 - `/catalogo`: catálogo com pesquisa, filtros e formulário de compra.
 - `/minhas-compras`: pedidos da conta do cliente.
 - `/dashboard`: painel administrativo, com total de clientes.
-- `/clientes`: lista somente para administradores com as contas da tabela `contas`, incluindo busca por e-mail e paginação. Não exibe senhas nem hashes.
-- `/jogos`, `/vendas`, `/users`, `/companies`, `/posts`: cadastros exclusivos do administrador.
+- `/users` e `/clientes`: lista para administradores com as contas da tabela `contas`, incluindo nome, sexo, e-mail, pesquisa e paginação. Não exibe senhas nem hashes.
+- `/usuarios-internos`: CRUD de responsáveis antigos, preservado para a chave estrangeira de Jogos.
+- `/jogos`, `/vendas`, `/companies`, `/posts`: cadastros exclusivos do administrador.
 
 ### Clientes x usuários internos
-A tela de registro da loja (`/register`) salva o cliente em **`contas`**; o CRUD original de usuários salva registros em **`users`**. São entidades distintas. O administrador acessa **Clientes** em `/clientes` para visualizar contas criadas na loja e **Usuários internos** em `/users` para gerenciar os responsáveis pelos jogos, posts e empresas. A nova listagem é apenas de leitura e dispensa qualquer migração adicional do banco, desde que a tabela `contas` já exista.
+O cadastro da loja (`/register`) pede **nome, sexo, e-mail e senha**, salvando tudo na tabela `contas` (a senha apenas como hash). No painel administrativo, **Usuários** (`/users`) mostra estas contas, inclusive com nome e sexo. O endereço antigo `/clientes` continua funcionando.
+
+**Posts e Empresas** agora usam um `<select>` dinâmico dessas contas da loja. O novo vínculo é `conta_id`, uma chave estrangeira para `contas.id`. Os vínculos antigos em `user_id` são mantidos para exibir registros existentes; ao editar um registro antigo, escolha uma conta da loja para converter o vínculo. O CRUD original da tabela `users` continua separado em **Responsáveis dos jogos** (`/usuarios-internos`), pois `jogos.usuario_id` depende dele.
+
+**Atualização do banco:** a aplicação tenta criar as colunas/chaves ausentes automaticamente quando acessa os cadastros, se o usuário MySQL tiver permissão de `ALTER TABLE`. Caso não tenha, execute `migration-perfil-e-vinculos.sql` no banco correto antes de utilizar o novo cadastro. Este script é reexecutável e não remove registros. Contas antigas continuam válidas, mas nome/sexo delas podem aparecer como "Não informado" até completar o perfil.
 
 O botão **Comprar** registra um pedido com status `PENDENTE`, não faz cobrança real e não entrega licença digital. O administrador pode editar o pedido para `PAGO` ou `CANCELADO` na página de Vendas.
 

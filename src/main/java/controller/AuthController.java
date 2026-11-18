@@ -131,26 +131,45 @@ public class AuthController extends HttpServlet {
                 || "0:0:0:0:0:0:0:1".equals(address);
     }
 
+    /** Cadastra o perfil e a senha criptografada na mesma conta da loja. */
     private void register(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
+        String rawName = request.getParameter("nome");
+        String sex = request.getParameter("sexo");
+        String rawEmail = request.getParameter("email");
         String password = request.getParameter("password");
-        String message = "Informe um e-mail válido e uma senha de 8 a 1024 caracteres.";
-        if (email != null && password != null) {
-            email = email.strip().toLowerCase(Locale.ROOT);
-            if (email.length() <= 254 && email.matches("[^\\s@]+@[^\\s@]+\\.[^\\s@]+")
-                    && password.length() >= 8 && password.length() <= 1024) {
-                try {
-                    if (new AccountDAO().register(email, hashPassword(password))) {
-                        response.sendRedirect(request.getContextPath() + "/login?registered=1");
-                        return;
-                    }
-                    message = "Este e-mail já está em uso.";
-                } catch (ModelException | GeneralSecurityException e) {
-                    throw new ServletException("Falha ao cadastrar conta.", e);
+
+        String name = rawName == null ? "" : rawName.strip();
+        String email = rawEmail == null ? "" : rawEmail.strip().toLowerCase(Locale.ROOT);
+
+        request.setAttribute("registrationName", name);
+        request.setAttribute("registrationSex", sex);
+        request.setAttribute("registrationEmail", email);
+
+        boolean nameValid = name.length() >= 2 && name.length() <= 150;
+        boolean sexValid = sex != null && java.util.List.of(
+                "Masculino", "Feminino", "Outro", "Prefiro não informar").contains(sex);
+        boolean emailValid = email.length() <= 254
+                && email.matches("[^\\s@]+@[^\\s@]+\\.[^\\s@]+");
+        boolean passwordValid = password != null
+                && password.length() >= 8 && password.length() <= 1024;
+
+        String message = "Informe nome, sexo, e-mail válido e senha de pelo menos 8 caracteres.";
+        if (nameValid && sexValid && emailValid && passwordValid) {
+            try {
+                if (new AccountDAO().register(name, sex, email, hashPassword(password))) {
+                    response.sendRedirect(request.getContextPath() + "/login?registered=1");
+                    return;
                 }
+                message = "Este e-mail já está cadastrado. Entre com sua conta.";
+            } catch (ModelException e) {
+                getServletContext().log("Falha ao cadastrar conta", e);
+                message = "Não foi possível salvar. Confira o MySQL e a migração de contas.";
+            } catch (GeneralSecurityException e) {
+                throw new ServletException("Falha ao proteger a senha.", e);
             }
         }
+
         request.setAttribute("loginError", message);
         response.setStatus(400);
         ControllerUtil.forward(request, response, "/WEB-INF/register.jsp");

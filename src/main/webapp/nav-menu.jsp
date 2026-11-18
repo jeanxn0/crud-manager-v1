@@ -12,8 +12,8 @@
         <li><a href="${pageContext.request.contextPath}/dashboard">Painel</a></li>
         <li><a href="${pageContext.request.contextPath}/jogos">Jogos</a></li>
         <li><a href="${pageContext.request.contextPath}/vendas">Vendas</a></li>
-        <li><a href="${pageContext.request.contextPath}/clientes">Clientes</a></li>
-        <li><a href="${pageContext.request.contextPath}/users">Usuários internos</a></li>
+        <li><a href="${pageContext.request.contextPath}/users">Usuários</a></li>
+        <li><a href="${pageContext.request.contextPath}/usuarios-internos">Responsáveis dos jogos</a></li>
         <li><a href="${pageContext.request.contextPath}/companies">Empresas</a></li>
         <li><a href="${pageContext.request.contextPath}/posts">Posts</a></li>
         <li><a href="${pageContext.request.contextPath}/catalogo">Ver loja</a></li>

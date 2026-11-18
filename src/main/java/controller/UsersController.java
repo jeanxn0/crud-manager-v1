@@ -15,7 +15,7 @@ import model.dao.UserDAO;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
-@WebServlet(urlPatterns = {"/users", "/user/form", "/user/delete", "/user/insert", "/user/update"})
+@WebServlet(urlPatterns = {"/usuarios-internos", "/user/form", "/user/delete", "/user/insert", "/user/update"})
 public class UsersController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -74,7 +74,7 @@ public class UsersController extends HttpServlet {
 			break;
 		}
 			
-		ControllerUtil.redirect(resp, req.getContextPath() + "/users");
+		ControllerUtil.redirect(resp, req.getContextPath() + "/usuarios-internos");
 	}
 
 	private User loadUser(HttpServletRequest req) {

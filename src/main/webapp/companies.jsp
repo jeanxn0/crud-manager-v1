@@ -5,7 +5,7 @@
 <body>
 <%@ include file="modal.html" %><%@ include file="nav-menu.jsp" %>
 <main class="container store-page">
-  <header class="store-intro"><p class="store-intro-label">ADMINISTRAÇÃO</p><h1>Empresas</h1><p>Cadastros de vínculos profissionais associados aos usuários do CRUD.</p></header>
+  <header class="store-intro"><p class="store-intro-label">ADMINISTRAÇÃO</p><h1>Empresas</h1><p>Cadastros de vínculos profissionais associados às contas cadastradas na loja.</p></header>
   <c:if test="${not empty message}"><div class="store-feedback" role="status"><c:out value="${message}"/></div></c:if>
   <div class="admin-toolbar"><h2>Empresas cadastradas</h2><a class="btn btn-primary" href="${pageContext.request.contextPath}/company/form">+ Adicionar empresa</a></div>
   <form class="admin-search" action="${pageContext.request.contextPath}/companies" method="get" role="search">
@@ -21,7 +21,17 @@
         <td><strong><c:out value="${comp.getName()}"/></strong></td>
         <td><c:out value="${comp.getRole()}"/></td>
         <td><c:out value="${comp.getStart()}"/></td><td><c:out value="${comp.getEnd()}"/></td>
-        <td><c:out value="${comp.getUser().getName()}"/></td>
+        <td><c:choose>
+          <c:when test="${not empty comp.getAccount()}">
+            <c:choose><c:when test="${not empty comp.getAccount().nome()}">
+              <c:out value="${comp.getAccount().nome()}"/>
+            </c:when><c:otherwise><c:out value="${comp.getAccount().email()}"/></c:otherwise></c:choose>
+          </c:when>
+          <c:when test="${not empty comp.getUser()}">
+            <c:out value="${comp.getUser().getName()}"/> <small>(antigo)</small>
+          </c:when>
+          <c:otherwise>Não informado</c:otherwise>
+        </c:choose></td>
         <td><a href="${pageContext.request.contextPath}/company/update?companyId=${comp.getId()}" class="btn btn-default btn-sm">Editar</a>
           <a href="#" class="btn btn-danger btn-sm modal-remove" data-toggle="modal" data-target="#delete-modal" data-item-id="${comp.getId()}" data-item-name="<c:out value='${comp.getName()}'/>">Excluir</a></td>
       </tr></c:forEach>

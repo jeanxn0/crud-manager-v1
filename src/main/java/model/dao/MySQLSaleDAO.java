@@ -76,7 +76,8 @@ public class MySQLSaleDAO implements SaleDAO {
     public Map<Integer, String> buyers() throws ModelException {
         Map<Integer, String> labels = new LinkedHashMap<>();
         try (Connection conn = MySQLConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT id, email FROM contas ORDER BY email");
+             PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT id, email FROM contas ORDER BY email");
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) labels.put(rs.getInt(1), rs.getString(2));
             return labels;

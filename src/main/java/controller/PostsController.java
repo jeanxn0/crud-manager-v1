@@ -1,202 +1,123 @@
 package controller;
 
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.List;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Locale;
 import model.ModelException;
 import model.Post;
-import model.User;
+import model.dao.CustomerDAO;
 import model.dao.DAOFactory;
 import model.dao.PostDAO;
 
-@SuppressWarnings("serial")
-// Herda da classe HttpServlet (extends HttpServlet) para ser tratada como um Servlet
-// Anota a classe (@WebServlet) ajustando as URLs (urlPatterns) as quais ela responde
-@WebServlet(urlPatterns = {"/posts", "/post/form", "/post/delete", "/post/insert", "/post/update"})
+/**
+ * CRUD de publicacoes: os novos posts escolhem um usuario cadastrado na loja.
+ */
+@WebServlet({"/posts", "/post/form", "/post/delete", "/post/insert", "/post/update"})
 public class PostsController extends HttpServlet {
-	
-	// Sobrescreve o método doGet, sendo capaz de responder métodos HTTP GET
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String action = req.getServletPath();
-		
-		switch (action) {
-		case "/post/form": {
-			CommonsController.listUsers(req);
-			req.setAttribute("action", "insert");
-			ControllerUtil.forward(req, resp, "/form-post.jsp");
-			break;
-		}
-		case "/post/update": {
-			CommonsController.listUsers(req);
-			Post p = loadPost(req);
-			req.setAttribute("post", p);
-			req.setAttribute("action", "update");
-			ControllerUtil.forward(req, resp, "/form-post.jsp");
-			break;
-		}
-		default:
-			listPosts(req);
-			
-			ControllerUtil.transferSessionMessagesToRequest(req);
-		
-			ControllerUtil.forward(req, resp, "/WEB-INF/posts.jsp");
-		}
-	}
-	
-	// Sobrescreve o método doPost, sendo capaz de responder métodos HTTP POST
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String action = req.getServletPath();
-		
-		if (action == null || action.equals("") ) {
-			ControllerUtil.forward(req, resp, "/index.jsp");
-			return;
-		}
-		
-		switch (action) {
-		case "/post/delete":
-			deletePost(req, resp);
-			break;
-		case "/post/insert": {
-			insertPost(req, resp);
-			break;
-		}
-		case "/post/update": {
-			updatePost(req, resp);
-			break;
-		}
-		default:
-			System.out.println("URL inválida " + action);
-		}
-			
-		ControllerUtil.redirect(resp, req.getContextPath() + "/posts");
-	}
-	
-	private Post loadPost(HttpServletRequest req) {
-		String postIdParameter = req.getParameter("postId");
-		
-		int postId = Integer.parseInt(postIdParameter);
-		
-		PostDAO dao = DAOFactory.createDAO(PostDAO.class);
-		
-		try {
-			Post p = dao.findById(postId);
-			
-			if (p == null)
-				throw new ModelException("Post não encontrado para alteração");
-			
-			return p;
-		} catch (ModelException e) {
-			// log no servidor
-			e.printStackTrace();
-			ControllerUtil.errorMessage(req, e.getMessage());
-		}
-		
-		return null;
-	}
 
-	private void updatePost(HttpServletRequest req, HttpServletResponse resp) {
-		String postContent = req.getParameter("content");
-		Integer userId = Integer.parseInt(req.getParameter("user"));
-		
-		Post post = loadPost(req);
-		post.setContent(postContent);
-		post.setUser(new User(userId));
-		
-		PostDAO dao = DAOFactory.createDAO(PostDAO.class);
-		
-		try {
-			if (dao.update(post)) {
-				ControllerUtil.sucessMessage(req, "Post '" + post.getContent() + "' atualizado com sucesso.");
-			}
-			else {
-				ControllerUtil.errorMessage(req, "Post '" + post.getContent() + "' não pode ser atualizado.");
-			}				
-		} catch (ModelException e) {
-			// log no servidor
-			e.printStackTrace();
-			ControllerUtil.errorMessage(req, e.getMessage());
-		}
-	}
+    private static final long serialVersionUID = 1L;
+    private final PostDAO dao = DAOFactory.createDAO(PostDAO.class);
+    private final CustomerDAO customers = new CustomerDAO();
 
-	private void insertPost(HttpServletRequest req, HttpServletResponse resp) {
-		String postContent = req.getParameter("content");
-		Integer userId = Integer.parseInt(req.getParameter("user"));
-		
-		Post post = new Post();
-		post.setContent(postContent);
-		post.setPostDate(Calendar.getInstance().getTime());
-		post.setUser(new User(userId));
-		
-		PostDAO dao = DAOFactory.createDAO(PostDAO.class);
-		
-		try {
-			if (dao.save(post)) {
-				ControllerUtil.sucessMessage(req, "Post '" + post.getContent() + "' salvo com sucesso.");
-			}
-			else {
-				ControllerUtil.errorMessage(req, "Post '" + post.getContent() + "' não pode ser salvo.");
-			}
-				
-		} catch (ModelException e) {
-			// log no servidor
-			e.printStackTrace();
-			ControllerUtil.errorMessage(req, e.getMessage());
-		}
-	}
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        String path = req.getServletPath();
+        try {
+            if ("/post/form".equals(path) || "/post/update".equals(path)) {
+                if ("/post/update".equals(path)) {
+                    int id = Integer.parseInt(req.getParameter("postId"));
+                    Post post = dao.findById(id);
+                    if (post == null) {
+                        resp.sendError(404, "Post não encontrado.");
+                        return;
+                    }
+                    req.setAttribute("post", post);
+                }
+                req.setAttribute("accounts", customers.list());
+                req.setAttribute("action", "/post/form".equals(path) ? "insert" : "update");
+                ControllerUtil.forward(req, resp, "/form-post.jsp");
+                return;
+            }
 
-	private void deletePost(HttpServletRequest req, HttpServletResponse resp) {
-		String postIdParameter = req.getParameter("id");
-		
-		int postId = Integer.parseInt(postIdParameter);
-		
-		PostDAO dao = DAOFactory.createDAO(PostDAO.class);
-		
-		try {
-			Post p = dao.findById(postId);
-			
-			if (p == null)
-				throw new ModelException("Post não encontrado para deleção");
-			
-			if (dao.delete(p)) {
-				ControllerUtil.sucessMessage(req, "Post '" + p.getContent() + "' deletado com sucesso.");
-			}
-			else {
-				ControllerUtil.errorMessage(req, "Post '" + p.getContent() + "' não pode ser deletado.");
-			}
-		} catch (ModelException e) {
-			// log no servidor
-			e.printStackTrace();
-			ControllerUtil.errorMessage(req, e.getMessage());
-		}
-	}
-
-	private void listPosts(HttpServletRequest req) {
-		PostDAO dao = DAOFactory.createDAO(PostDAO.class);
-		
-		List<Post> posts = null;
-		try {
-			posts = dao.listAll();
-		} catch (ModelException e) {
-			// Log no servidor
-			e.printStackTrace();
-		}
-		
-		if (posts != null) {
-            String q = req.getParameter("q");
-            if (q != null && !q.isBlank()) {
-                String search = q.strip().toLowerCase(java.util.Locale.ROOT);
-                posts = posts.stream().filter(p -> p.getContent() != null
-                        && p.getContent().toLowerCase(java.util.Locale.ROOT).contains(search)).toList();
+            var posts = dao.listAll();
+            String query = req.getParameter("q");
+            if (query != null && !query.isBlank()) {
+                String term = query.strip().toLowerCase(Locale.ROOT);
+                posts = posts.stream()
+                        .filter(post -> post.getContent() != null
+                                && post.getContent().toLowerCase(Locale.ROOT).contains(term))
+                        .toList();
             }
             Pagination.apply(req, "posts", posts);
+            ControllerUtil.transferSessionMessagesToRequest(req);
+            ControllerUtil.forward(req, resp, "/WEB-INF/posts.jsp");
+        } catch (ModelException e) {
+            getServletContext().log("Falha no CRUD de posts", e);
+            throw new ServletException("Não foi possível acessar os posts. Verifique a migração do banco.", e);
+        } catch (IllegalArgumentException e) {
+            resp.sendError(400, "Post inválido.");
         }
-	}
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+        String path = req.getServletPath();
+        try {
+            switch (path) {
+                case "/post/insert":
+                case "/post/update": {
+                    String content = req.getParameter("content");
+                    int accountId = Integer.parseInt(req.getParameter("accountId"));
+                    if (content == null || content.isBlank() || content.length() > 5000
+                            || accountId <= 0) {
+                        throw new IllegalArgumentException("Dados inválidos.");
+                    }
+                    Post post = "/post/update".equals(path)
+                            ? dao.findById(Integer.parseInt(req.getParameter("postId")))
+                            : new Post();
+                    if (post == null) {
+                        ControllerUtil.errorMessage(req, "Post não encontrado.");
+                        break;
+                    }
+                    post.setContent(content.strip());
+                    post.setPostDate(Calendar.getInstance().getTime());
+                    post.setAccountId(accountId);
+
+                    boolean saved = "/post/update".equals(path)
+                            ? dao.update(post) : dao.save(post);
+                    if (saved) ControllerUtil.sucessMessage(req, "Post salvo com sucesso.");
+                    else ControllerUtil.errorMessage(req, "Não foi possível salvar o post.");
+                    break;
+                }
+                case "/post/delete": {
+                    int id = Integer.parseInt(req.getParameter("id"));
+                    Post post = dao.findById(id);
+                    if (post == null) {
+                        ControllerUtil.errorMessage(req, "Post não encontrado.");
+                    } else if (dao.delete(post)) {
+                        ControllerUtil.sucessMessage(req, "Post excluído.");
+                    } else {
+                        ControllerUtil.errorMessage(req, "Não foi possível excluir o post.");
+                    }
+                    break;
+                }
+                default:
+                    resp.sendError(405);
+                    return;
+            }
+        } catch (ModelException e) {
+            getServletContext().log("Falha ao gravar post", e);
+            ControllerUtil.errorMessage(req, "Erro ao salvar. Verifique o usuário e a migração do MySQL.");
+        } catch (RuntimeException e) {
+            ControllerUtil.errorMessage(req, "Preencha o conteúdo e escolha um usuário cadastrado.");
+        }
+        ControllerUtil.redirect(resp, req.getContextPath() + "/posts");
+    }
 }

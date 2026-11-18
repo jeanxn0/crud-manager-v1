@@ -14,7 +14,7 @@
  <div class="form-group col-md-3"><label for="gender">Sexo</label><select class="form-control" id="gender" name="gender" required><option value="">Selecione</option><option value="F" ${user.getGender() eq 'F' ? 'selected' : ''}>Feminino</option><option value="M" ${user.getGender() eq 'M' ? 'selected' : ''}>Masculino</option></select></div>
  <div class="form-group col-md-4"><label for="mail">E-mail</label><input class="form-control" type="email" id="mail" name="mail" maxlength="254" value="<c:out value='${user.getEmail()}'/>" required></div>
 </div>
-<div class="form-actions"><button type="submit" class="btn btn-primary">${not empty user ? 'Salvar alterações' : 'Cadastrar usuário'}</button><a class="btn btn-default" href="${pageContext.request.contextPath}/users">Cancelar</a></div>
+<div class="form-actions"><button type="submit" class="btn btn-primary">${not empty user ? 'Salvar alterações' : 'Cadastrar usuário'}</button><a class="btn btn-default" href="${pageContext.request.contextPath}/usuarios-internos">Cancelar</a></div>
 </form>
 </section></main>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script><script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>

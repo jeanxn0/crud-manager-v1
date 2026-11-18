@@ -10,12 +10,22 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(254) NOT NULL
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS contas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(150) NULL,
+    sexo VARCHAR(30) NULL,
+    email VARCHAR(254) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     content TEXT NOT NULL,
     post_date DATE NOT NULL,
-    user_id INT NOT NULL,
-    CONSTRAINT fk_posts_user FOREIGN KEY (user_id) REFERENCES users(id)
+    user_id INT NULL,
+    conta_id INT NULL,
+    CONSTRAINT fk_posts_user FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_posts_conta FOREIGN KEY (conta_id) REFERENCES contas(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS companies (
@@ -24,8 +34,10 @@ CREATE TABLE IF NOT EXISTS companies (
     role VARCHAR(150) NOT NULL,
     start DATE NOT NULL,
     `end` DATE,
-    user_id INT NOT NULL,
-    CONSTRAINT fk_companies_user FOREIGN KEY (user_id) REFERENCES users(id)
+    user_id INT NULL,
+    conta_id INT NULL,
+    CONSTRAINT fk_companies_user FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_companies_conta FOREIGN KEY (conta_id) REFERENCES contas(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS jogos (
@@ -53,11 +65,7 @@ CREATE TABLE IF NOT EXISTS vendas (
 
 SHOW TABLES;
 
-CREATE TABLE IF NOT EXISTS contas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(254) NOT NULL UNIQUE,
-    senha_hash VARCHAR(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 CREATE TABLE IF NOT EXISTS capas_jogos (
     jogo_id INT PRIMARY KEY,
