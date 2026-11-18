@@ -1,4 +1,4 @@
-<%-- Shared, accessible pagination fragment for all CRUD listings. --%>
+
 <c:if test="${totalPages gt 1}">
     <nav class="store-pagination" aria-label="Navegacao entre paginas">
         <c:if test="${currentPage gt 1}">
