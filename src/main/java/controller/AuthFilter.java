@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @WebFilter("/*")
 public class AuthFilter implements Filter {
+    @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
@@ -22,7 +23,8 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession();
         if (session.getAttribute("csrf") == null) {
             synchronized (session) {
-                if (session.getAttribute("csrf") == null) session.setAttribute("csrf", UUID.randomUUID().toString());
+                if (session.getAttribute("csrf") == null)
+                    session.setAttribute("csrf", UUID.randomUUID().toString());
             }
         }
         boolean publicPage = "/login".equals(path) || "/register".equals(path);
@@ -31,8 +33,17 @@ public class AuthFilter implements Filter {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        if (!publicPage && !"/logout".equals(path) && !"/catalogo".equals(path) && !"/comprar".equals(path) && !"/minhas-compras".equals(path) && !Boolean.TRUE.equals(session.getAttribute("admin"))) {
-            if ("GET".equals(request.getMethod()) && (path.isEmpty() || "/".equals(path) || "/index.jsp".equals(path))) {
+        if (authenticated && Boolean.TRUE.equals(session.getAttribute("mustChangeAdminPassword"))
+                && !"/alterar-senha".equals(path) && !"/logout".equals(path)) {
+            response.sendRedirect(request.getContextPath() + "/alterar-senha");
+            return;
+        }
+        if (!publicPage && !"/logout".equals(path) && !"/catalogo".equals(path)
+                && !"/comprar".equals(path) && !"/minhas-compras".equals(path)
+                && !"/alterar-senha".equals(path)
+                && !Boolean.TRUE.equals(session.getAttribute("admin"))) {
+            if ("GET".equals(request.getMethod())
+                    && (path.isEmpty() || "/".equals(path) || "/index.jsp".equals(path))) {
                 response.sendRedirect(request.getContextPath() + "/catalogo");
             } else {
                 response.sendError(403);

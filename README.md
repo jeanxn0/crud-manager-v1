@@ -18,14 +18,16 @@ No MySQL, execute **nesta ordem**:
 
 Se as tabelas já existem, os scripts foram escritos para preservar os registros; `migration-compras.sql` é idempotente. Não execute `schema.sql` nem scripts de dados em um ambiente que não tenha backup.
 
-## Configuração
-Configure variáveis de ambiente antes de iniciar o Tomcat:
-- `CRUD_DB_URL`: JDBC URL MySQL no formato `jdbc:mysql://HOST:PORTA/crud_manager?sslMode=REQUIRED`
-- `CRUD_DB_USER` e `CRUD_DB_PASSWORD`: credenciais do MySQL
-- `CRUD_LOGIN`: nome de usuário administrador
-- `CRUD_PASSWORD_HASH`: hash PBKDF2 do administrador, no formato `base64(salt):base64(chave)` (600000 iterações PBKDF2WithHmacSHA256, salt de 16 bytes e chave de 32 bytes).
+## Configuração do banco e login
+A conexão MySQL continua configurável por `CRUD_DB_URL`, `CRUD_DB_USER` e `CRUD_DB_PASSWORD`. Não são variáveis de LOGIN: servem só para conectar ao banco. Se não forem definidas, o projeto usa `jdbc:mysql://localhost:3306/crud_manager`, usuário `root` e senha vazia.
 
-Não salve senhas diretamente no repositório. Use Tomcat com Jakarta Servlet 5, Java 17+ e o conector MySQL/JSTL incluídos em `WEB-INF/lib`.
+**Administrador temporário local:** entre em `http://localhost:8080/NOME-DA-APLICACAO/login` usando **usuário `admin` e senha `admin`**. Não é necessário configurar `CRUD_LOGIN` ou `CRUD_PASSWORD_HASH`. O projeto cria a tabela `administradores` e gera a primeira conta automaticamente no MySQL (se o usuário do banco tiver permissão de criação), sempre que o primeiro acesso for feito pelo `localhost`.
+
+Ao entrar pela primeira vez, a aplicação exige **trocar a senha** (mínimo 12 caracteres). A senha nova fica armazenada no banco com PBKDF2; `admin/admin` deixa de funcionar. Por segurança, a senha temporária é aceita apenas de `127.0.0.1` / `::1`, não pela rede ou internet. Se a tabela já existe, as credenciais NÃO são redefinidas. Se a conexão ou permissão MySQL falhar, o login exibe mensagem explicativa.
+
+O login agora apresenta uma tela gamer responsiva com visual próprio e cenário de Cyberpunk 2077. A imagem em alta definição é carregada online, com capa local de reserva.
+
+Use Tomcat com Jakarta Servlet 5+, Java 17+ e as bibliotecas presentes em `WEB-INF/lib`. Não disponibilize a aplicação publicamente com senhas de teste.
 
 ## Caminhos
 - `/login` / `/register`: autenticação e cadastro.
@@ -39,10 +41,11 @@ O botão **Comprar** registra um pedido com status `PENDENTE`, não faz cobranç
 Os jogos adicionais usam imagens do CDN público da Steam como fallback. É necessária conexão à internet para que essas capas sejam exibidas.
 
 ## Teste manual
-1. Criar conta de cliente e entrar.
-2. Comprar um jogo e confirmar que aparece em Minhas compras como PENDENTE.
-3. Entrar como administrador, abrir Vendas e mudar o status para PAGO.
-4. Entrar novamente como cliente e confirmar status atualizado.
-5. Confirmar CRUDs e paginação em todas as listagens.
+1. Acessar `/login` pelo localhost e entrar com `admin/admin`; definir senha nova e confirmar abertura do dashboard.
+2. Criar conta de cliente e entrar.
+3. Comprar um jogo e confirmar que aparece em Minhas compras como PENDENTE.
+4. Entrar como administrador, abrir Vendas e mudar o status para PAGO.
+5. Entrar novamente como cliente e confirmar status atualizado.
+6. Confirmar CRUDs e paginação em todas as listagens.
 
-**Nota:** o banco de dados e o Tomcat precisam estar rodando; os scripts SQL não são executados automaticamente ao alterar o GitHub.
+**Nota:** o banco de dados e a aplicação precisam estar rodando. As tabelas principais e os jogos ainda dependem dos scripts SQL da seção anterior. A tabela `administradores` pode ser criada automaticamente pelo login inicial local, sem exigir script específico. Uma atualização no GitHub não atualiza automaticamente a cópia já implantada no servidor.

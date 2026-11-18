@@ -71,3 +71,12 @@ CREATE TABLE IF NOT EXISTS plataformas_jogos (
     PRIMARY KEY (jogo_id, plataforma),
     FOREIGN KEY (jogo_id) REFERENCES jogos(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- Administradores: criados automaticamente pelo login local quando faltarem.
+-- Também é possível preparar a tabela executando schema.sql.
+CREATE TABLE IF NOT EXISTS administradores (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL,
+    trocar_senha BOOLEAN NOT NULL DEFAULT TRUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
