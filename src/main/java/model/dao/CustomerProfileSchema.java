@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Atualiza contas sem descartar clientes antigos.
- * As colunas extras podem ficar NULL para os cadastros antigos.
- */
+
+
+
+
 public final class CustomerProfileSchema {
     private CustomerProfileSchema() {
     }
@@ -32,7 +32,7 @@ public final class CustomerProfileSchema {
             }
         }
 
-        // Apenas constantes locais são utilizadas no DDL.
+        
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("ALTER TABLE contas ADD COLUMN " + column + " " + type);
         } catch (SQLException e) {
